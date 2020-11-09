@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 01:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/11/10 01:19:53 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/11/10 01:22:14 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int parse_length(const char *format, t_fmt **fmt_struct)
 int parse_type(const char *format, t_fmt **fmt_struct)
 {
 	(*fmt_struct)->type = NONE_TYPE;
-	// 1文字のLength
 	if (*format == 'd' || *format == 'i')
 		(*fmt_struct)->type = INTGER;
 	else if (*format == 'o')
