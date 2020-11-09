@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/11/10 00:48:59 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/11/10 01:20:01 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,16 @@ enum e_length {
 };
 
 enum e_type {
+	NONE_TYPE,
 	PERCENT,
 	INTGER,
 	UNS_INT,
 	CHAR,
 	STRING,
 	POINTER,
-	HEX_UP,
+	OCTAL,
 	HEX_LOW,
+	HEX_UP,
 };
 
 typedef struct s_fmt{
@@ -62,6 +64,7 @@ int parse_flag(const char *format, t_fmt **fmt_struct, va_list ap);
 int parse_width(const char *format, t_fmt **fmt_struct, va_list ap);
 int parse_precision(const char *format, t_fmt **fmt_struct, va_list ap);
 int parse_length(const char *format, t_fmt **fmt_struct);
+int parse_type(const char *format, t_fmt **fmt_struct);
 int ft_printf(const char *format, ...);
 
 #endif
