@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/11/10 01:35:40 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/11/10 02:35:36 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ enum e_length {
 enum e_type {
 	NONE_TYPE,
 	PERCENT,
-	INTGER,
-	UNS_INT,
+	INT,
+	UINT,
 	CHAR,
 	STRING,
 	POINTER,
@@ -65,6 +65,14 @@ int parse_width(const char *format, t_fmt **fmt_struct, va_list ap);
 int parse_precision(const char *format, t_fmt **fmt_struct, va_list ap);
 int parse_length(const char *format, t_fmt **fmt_struct);
 int parse_type(const char *format, t_fmt **fmt_struct);
+void write_int(t_fmt *fmt_struct);
+void write_uint(t_fmt *fmt_struct);
+void write_octal(t_fmt *fmt_struct);
+void write_hex_low(t_fmt *fmt_struct);
+void write_hex_up(t_fmt *fmt_struct);
+void write_char(t_fmt *fmt_struct);
+void write_string(t_fmt *fmt_struct);
+void write_POINTER(t_fmt *fmt_struct);
 void write_fmt(t_fmt *fmt_struct);
 int ft_printf(const char *format, ...);
 

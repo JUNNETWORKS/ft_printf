@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   put_fmt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 00:31:28 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/11/10 02:31:33 by jtanaka          ###   ########.fr       */
+/*   Created: 2020/11/10 01:32:20 by jtanaka           #+#    #+#             */
+/*   Updated: 2020/11/10 02:02:31 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "ft_printf.h"
 
-int ft_ispositive(int c)
+void write_fmt(t_fmt *fmt_struct)
 {
-  return (c >= '0' && c <= '9');
+
 }
-
-/* ゼロ埋めや空白埋めはどのtypeでも使うのでutilsに置く */
-

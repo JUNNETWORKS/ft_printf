@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 01:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/11/10 01:22:14 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/11/10 02:32:36 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,20 @@ int parse_flag(const char *format, t_fmt **fmt_struct, va_list ap)
 {
 	size_t read_size;
 	(*fmt_struct)->flag = 0;
+	// 0埋め
+	while (*format == '0')
+	{
+		(*fmt_struct)->flag |= PREPEND_ZEROS;
+		read_size++;
+	}
 	// 左揃え
-	if (*format == '-')
+	while (*format == '-')
 	{
 		(*fmt_struct)->flag |= LEFT_ALIGNED;
 		read_size++;
 	}
 	// 0埋め
-	if (*format == '0')
+	while (*format == '0')
 	{
 		(*fmt_struct)->flag |= PREPEND_ZEROS;
 		read_size++;
@@ -35,16 +41,17 @@ int parse_flag(const char *format, t_fmt **fmt_struct, va_list ap)
 int parse_width(const char *format, t_fmt **fmt_struct, va_list ap)
 {
 	(*fmt_struct)->width = -1;
-	if (ft_ispositive((char)*format))
-	{
-		(*fmt_struct)->width = ft_atoi(format);
-		return (num_len(format));
-	}
 	if (*format == '*')
 	{
 		(*fmt_struct)->width = va_arg(ap, size_t);
 		return (1);
 	}
+	if (ft_ispositive((char)*format))
+	{
+		(*fmt_struct)->width = ft_atoi(format);
+		return (num_len(format));
+	}
+	return (0);
 }
 
 int parse_precision(const char *format, t_fmt **fmt_struct, va_list ap)
@@ -55,15 +62,15 @@ int parse_precision(const char *format, t_fmt **fmt_struct, va_list ap)
 	if (*format == '.')
 	{
 		read_size++;
-		if (ft_ispositive(*format))
-		{
-			(*fmt_struct)->precision = ft_atoi(format);
-			read_size += num_len(format);
-		}
-		else if (*format == '*')
+		if (*format == '*')
 		{
 			(*fmt_struct)->precision = va_arg(ap, size_t);
 			read_size++;
+		}
+		else if (ft_ispositive(*format))
+		{
+			(*fmt_struct)->precision = ft_atoi(format);
+			read_size += num_len(format);
 		}
 		else
 			(*fmt_struct)->precision = 0;
@@ -103,11 +110,11 @@ int parse_type(const char *format, t_fmt **fmt_struct)
 {
 	(*fmt_struct)->type = NONE_TYPE;
 	if (*format == 'd' || *format == 'i')
-		(*fmt_struct)->type = INTGER;
+		(*fmt_struct)->type = INT;
 	else if (*format == 'o')
 		(*fmt_struct)->type = OCTAL;
 	else if (*format == 'u')
-		(*fmt_struct)->type = UNS_INT;
+		(*fmt_struct)->type = UINT;
 	else if (*format == 'x')
 		(*fmt_struct)->type = HEX_LOW;
 	else if (*format == 'X')

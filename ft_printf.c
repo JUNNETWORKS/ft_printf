@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 22:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/11/10 01:13:12 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/11/10 02:22:53 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,25 @@
 #include "ft_printf.h"
 
 // *formatは%の次の位置にポインタがある状態で渡される
-void parse(const char *format, va_list ap)
+// 返り値は進んだバイト数
+size_t parse_and_write(const char *format, va_list ap)
 {
+	size_t read_size;
+	read_size = 0;
 	t_fmt *fmt_struct;
 	/* フラグの解析 */
-	format += parse_flag(format, &fmt_struct, ap);
+	read_size += parse_flag((format + read_size), &fmt_struct, ap);
 	/* 最小フィールド幅 */
-	format += parse_width(format, &fmt_struct, ap);
+	read_size += parse_width((format + read_size), &fmt_struct, ap);
 	/* 精度 */
-	format += parse_precision(format, &fmt_struct, ap);
+	read_size += parse_precision((format + read_size), &fmt_struct, ap);
 	/* 長さ修飾子 */
-	format += parse_length(format, &fmt_struct);
+	read_size += parse_length((format + read_size), &fmt_struct);
 	/* 変換指定子 ('%'もここで処理する) */
-	format += parse_type(format, &fmt_struct);
+	read_size += parse_type((format + read_size), &fmt_struct);
 	/* 出力 */
+
+	return (read_size);
 }
 
 int ft_printf(const char *format, ...)
