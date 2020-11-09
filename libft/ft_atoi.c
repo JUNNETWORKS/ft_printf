@@ -6,13 +6,13 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 02:58:56 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/10/21 23:35:38 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/11/09 01:34:30 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	num_len(const char *str)
+int	num_len(const char *str)
 {
 	int i;
 

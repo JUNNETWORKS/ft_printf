@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 22:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/11/09 01:08:13 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/11/09 01:36:08 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,15 @@
 #include "ft_printf.h"
 
 // *formatは%の次の位置にポインタがある状態で渡される
-void parse_percent(const char *format, va_list ap)
+void parse(const char *format, va_list ap)
 {
 	t_fmt *fmt_struct;
 	/* フラグの解析 */
+	format += parse_flag(format, &fmt_struct, ap);
 	/* 最小フィールド幅 */
-	if (ft_ispositive((char)*format))
-		fmt_struct->width = ft_atoi(format);
-	else if (*format == '*')
-	{
-		fmt_struct->width = va_arg(ap, size_t);
-		(format)++;
-	}
-
+	format += parse_width(format, &fmt_struct, ap);
 	/* 精度 */
-	if (*format == '.')
-	{
-		if (ft_ispositive(*format))
-			fmt_struct->precision = ft_atoi(format);
-		else if (*format == '*')
-			fmt_struct->precision = va_arg(ap, size_t);
-		else
-			fmt_struct->precision = 0;
-		(format)++;
-	}
-	
-	
+	format += parse_precision(format, &fmt_struct, ap);
 	/* 長さ修飾子 */
 	
 	/* 変換指定子 ('%'もここで処理する) */
@@ -56,7 +39,7 @@ int ft_printf(const char *format, ...)
 	while (*format)
 	{
 		if (*format == '%')
-			parse_percent(++format, ap);
+			parse(++format, ap);
 		else
 		write(1, format, 1);
 		format++;
