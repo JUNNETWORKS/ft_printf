@@ -6,7 +6,7 @@
 #    By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/07 22:12:52 by jtanaka           #+#    #+#              #
-#    Updated: 2020/12/02 13:01:51 by jtanaka          ###   ########.fr        #
+#    Updated: 2020/12/02 13:04:13 by jtanaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS = ft_printf.c \
 	   put_fmt.c
 CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
-OBJS = $(SRCS:.c=.c)
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
@@ -30,7 +30,7 @@ $(NAME): ${OBJS}
 	ar rcs $(NAME) $(OBJS)
 
 clean:
-	${RM} ${OBJS} ${B_OBJS}
+	${RM} ${OBJS}
 
 fclean: clean
 	${RM} ${NAME}
