@@ -6,14 +6,20 @@
 #    By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/07 22:12:52 by jtanaka           #+#    #+#              #
-#    Updated: 2020/11/08 02:07:46 by jtanaka          ###   ########.fr        #
+#    Updated: 2020/12/02 13:01:51 by jtanaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = ft_printf.c
+SRCS = ft_printf.c \
+	   ft_printf_utils.c \
+	   output_char_string.c \
+	   output_fmt.c \
+	   output_integer.c \
+	   output_octal_hex.c \
+	   parsers.c \
+	   put_fmt.c
 CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
-SRCS = ft_printf.c
 OBJS = $(SRCS:.c=.c)
 
 all: $(NAME)
