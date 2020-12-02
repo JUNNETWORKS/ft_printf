@@ -2,3 +2,4 @@ main*
 .ccls-cache/
 pft/
 *.out
+*.o
