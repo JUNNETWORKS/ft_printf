@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/11/10 02:35:36 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/02 14:10:02 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ enum e_flag {
 
 enum e_length {
 	NONE_LENGTH,
-	hh,
-	h,
-	l,
-	ll,
-	L,
-	z,
-	j,
-	t
+	len_hh,
+	len_h,
+	len_l,
+	len_ll,
+	len_L,
+	len_z,
+	len_j,
+	len_t
 };
 
 enum e_type {
