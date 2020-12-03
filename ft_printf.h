@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/03 00:21:18 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/03 11:54:07 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,6 @@ enum e_flag {
 	PREPEND_SPACE	= 0b00100,  // %  数値が正または 0 の場合は符号の代わりに空白を出力
 	PREPEND_PREFIX	= 0b01000,  // %# 代替形式。基数を表すプレフィックスの出力等
 	PREPEND_ZEROS	= 0b10000	// %0 出力文字数が最小フィールド幅未満の場合は'0'を出力 Mandatory
-};
-
-enum e_length {
-	LENGTH_NONE,
-	LEN_HH,
-	LEN_H,
-	LEN_L,
-	LEN_LL,
-	LEN_l,
-	LEN_Z,
-	LEN_J,
-	LEN_T
 };
 
 enum e_type {
@@ -63,7 +51,6 @@ typedef struct s_fmt{
   enum e_width_opt width_opt;
   unsigned int width;
   ssize_t precision;
-  enum e_length length;
   enum e_type type;
 } t_fmt;
 
