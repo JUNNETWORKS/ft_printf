@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 01:32:20 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/11/10 02:38:14 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/02 14:26:57 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 /* ゼロ埋めや空白埋めはどのtypeでも使うのでutilsに置く */
 
-void write_char(t_fmt *fmt_struct)
-void write_string(t_fmt *fmt_struct)
-void write_POINTER(t_fmt *fmt_struct)
 
-void write_fmt(t_fmt *fmt_struct)
+int write_fmt(t_fmt *fmt_struct)
 {
+	int write_size;
+	write_size = 0;
 	// typeごとに処理を分ける
 	if (fmt_struct->type == INT)
+		write_size += output_int(fmt_struct);
 	else if(fmt_struct->type == UINT)
 	else if(fmt_struct->type == OCTAL)
 	else if(fmt_struct->type == HEX_LOW)
@@ -31,5 +31,5 @@ void write_fmt(t_fmt *fmt_struct)
 	else if(fmt_struct->type == STRING)
 	else if(fmt_struct->type == POINTER)
 	else
-	  write(1, "%", 1);
+		write(1, "%", 1);
 }
