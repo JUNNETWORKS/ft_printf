@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 01:32:20 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/02 14:26:57 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/03 14:32:30 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /* ゼロ埋めや空白埋めはどのtypeでも使うのでutilsに置く */
 
 
-int write_fmt(t_fmt *fmt_struct)
+int output_fmt(t_fmt *fmt_struct, va_list ap)
 {
 	int write_size;
 	write_size = 0;

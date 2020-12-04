@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/03 11:54:07 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/05 00:47:13 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include "libft/libft.h"
+
+#define STR(var) #var   //引数にした変数を変数名を示す文字列リテラルとして返すマクロ関数
 
 enum e_flag {
 	FLAG_NONE		= 0b00000,
@@ -27,16 +30,15 @@ enum e_flag {
 };
 
 enum e_type {
-	NONE_TYPE,
-	PERCENT,
-	INT,
-	UINT,
-	CHAR,
-	STRING,
-	POINTER,
-	OCTAL,
-	HEX_LOW,
-	HEX_UP,
+	TYPE_NONE,
+	TYPE_PERCENT,
+	TYPE_INT,
+	TYPE_UINT,
+	TYPE_CHAR,
+	TYPE_STRING,
+	TYPE_POINTER,
+	TYPE_HEX_LOW,
+	TYPE_HEX_UP,
 };
 
 enum e_width_opt {
@@ -52,6 +54,7 @@ typedef struct s_fmt{
   unsigned int width;
   ssize_t precision;
   enum e_type type;
+  unsigned int base;  // 8, 10, 16
 } t_fmt;
 
 int ft_ispositive(int c);
@@ -60,15 +63,15 @@ int parse_width(const char *format, t_fmt **fmt_struct, va_list ap);
 int parse_precision(const char *format, t_fmt **fmt_struct, va_list ap);
 int parse_length(const char *format, t_fmt **fmt_struct);
 int parse_type(const char *format, t_fmt **fmt_struct);
-void output_int(t_fmt *fmt_struct);
-void output_uint(t_fmt *fmt_struct);
-void output_octal(t_fmt *fmt_struct);
-void output_hex_low(t_fmt *fmt_struct);
-void output_hex_up(t_fmt *fmt_struct);
-void output_char(t_fmt *fmt_struct);
-void output_string(t_fmt *fmt_struct);
-void output_POINTER(t_fmt *fmt_struct);
-void output_fmt(t_fmt *fmt_struct);
+int output_int(t_fmt *fmt_struct, va_list ap);
+int output_uint(t_fmt *fmt_struct, va_list ap);
+int output_octal(t_fmt *fmt_struct, va_list ap);
+int output_hex_low(t_fmt *fmt_struct, va_list ap);
+int output_hex_up(t_fmt *fmt_struct, va_list ap);
+int output_char(t_fmt *fmt_struct, va_list ap);
+int output_string(t_fmt *fmt_struct, va_list ap);
+int output_POINTER(t_fmt *fmt_struct, va_list ap);
+int output_fmt(t_fmt *fmt_struct, va_list ap);
 int ft_printf(const char *format, ...);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 22:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/02 14:26:12 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/03 14:33:32 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,10 @@ int parse_and_write(const char **format, va_list ap)
 	*format += parse_width(*format, &fmt_struct, ap);
 	/* 精度 */
 	*format += parse_precision(*format, &fmt_struct, ap);
-	/* 長さ修飾子 */
-	*format += parse_length(*format, &fmt_struct);
 	/* 変換指定子 ('%'もここで処理する) */
 	*format += parse_type(*format, &fmt_struct);
 	/* 出力 */
-	return (output_fmt(fmt_struct));
+	return (output_fmt(fmt_struct, ap));
 }
 
 int ft_printf(const char *format, ...)

@@ -3,3 +3,4 @@ main*
 pft/
 *.out
 *.o
+*.a
