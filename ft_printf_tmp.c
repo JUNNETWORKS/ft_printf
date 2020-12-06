@@ -10,7 +10,6 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-int parse_and_write(va_list ap, const char**format);
 
 int ft_printf(const char*format, ...)
 {
@@ -38,7 +37,6 @@ int ft_printf(const char*format, ...)
 t_fmt *new_t_fmt()
 {
   t_fmt* fmt_data = malloc(sizeof(t_fmt));
-  fmt_data->base = 10;
   fmt_data->flag = FLAG_NONE;
   fmt_data->precision = 0;
   fmt_data->type = TYPE_NONE;
@@ -118,9 +116,39 @@ int parse_and_write(va_list ap, const char**format)
 	else if (**format == '%')
 		fmt_data->type = TYPE_PERCENT;
 	(*format)++;
+	// printf("t_fmt\n");
+	// printf("\tflag: %d\n\twidth_opt: %d\n\twidth: %u\n\tprecision: %zd\n\ttype: %d\n", fmt_data->flag, fmt_data->width_opt, fmt_data->width, fmt_data->precision, fmt_data->type);
+
 	// 実際にstdoutに書き込む
-	printf("t_fmt\n");
-	printf("\tflag: %d\n\twidth_opt: %d\n\twidth: %u\n\tprecision: %zd\n\ttype: %d\n", fmt_data->flag, fmt_data->width_opt, fmt_data->width, fmt_data->precision, fmt_data->type);
+	write_size += write_fmt_data(fmt_data, ap);
+
 	free(fmt_data);
 	return (write_size);
+}
+
+int write_fmt_data(t_fmt *fmt_data, va_list ap)
+{
+	if (fmt_data->type == TYPE_PERCENT)
+	  return (write(1, "%", 1));
+
+	if (fmt_data->type == TYPE_CHAR){
+	  char c = va_arg(ap, int);
+	  return (write(1, &c, 1));
+	}
+	else if (fmt_data->type == TYPE_STRING){
+	  char *str = va_arg(ap, char*);
+	  return (write(1, str, ft_strlen(str)));
+	}
+	else if (fmt_data->type == TYPE_INT || fmt_data->type == TYPE_UINT || fmt_data->type == TYPE_HEX_LOW || fmt_data->type == TYPE_HEX_UP){
+	  long long n = va_arg(ap, long long);
+	  char *num;
+	  return(fmt_put_nbr(n, fmt_data, &num, 0));
+	}
+	else if (fmt_data->type == TYPE_POINTER){
+	  long long n = va_arg(ap, long long);
+	  write(1, "0x", 2);
+	  char *num;
+	  return(fmt_put_nbr((long long)n, fmt_data, &num, 0) + 2);
+	}
+	return (0);
 }

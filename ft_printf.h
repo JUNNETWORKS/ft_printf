@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/05 00:47:13 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/06 07:43:11 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include "libft/libft.h"
 
 #define STR(var) #var   //引数にした変数を変数名を示す文字列リテラルとして返すマクロ関数
@@ -54,7 +55,7 @@ typedef struct s_fmt{
   unsigned int width;
   ssize_t precision;
   enum e_type type;
-  unsigned int base;  // 8, 10, 16
+  unsigned long long digit;  // 数字の桁数
 } t_fmt;
 
 int ft_ispositive(int c);
@@ -72,6 +73,9 @@ int output_char(t_fmt *fmt_struct, va_list ap);
 int output_string(t_fmt *fmt_struct, va_list ap);
 int output_POINTER(t_fmt *fmt_struct, va_list ap);
 int output_fmt(t_fmt *fmt_struct, va_list ap);
+int fmt_put_nbr(long long n, t_fmt *fmt_data, char **num, int len);
+int parse_and_write(va_list ap, const char**format);
+int write_fmt_data(t_fmt *fmt_data, va_list ap);
 int ft_printf(const char *format, ...);
 
 #endif
