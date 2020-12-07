@@ -6,7 +6,7 @@
 #    By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/10 04:46:14 by jtanaka           #+#    #+#              #
-#    Updated: 2020/10/20 23:40:08 by jtanaka          ###   ########.fr        #
+#    Updated: 2020/12/08 00:25:10 by jtanaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,9 +46,8 @@ SRCS =	ft_strlen.c \
 		ft_putchar_fd.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
-		ft_putnbr_fd.c
-
-B_SRCS=	ft_lstnew.c \
+		ft_putnbr_fd.c \
+		ft_lstnew.c \
 		ft_lstadd_front.c \
 		ft_lstsize.c \
 		ft_lstlast.c \
@@ -57,8 +56,8 @@ B_SRCS=	ft_lstnew.c \
 		ft_lstclear.c \
 		ft_lstiter.c \
 		ft_lstmap.c
+
 OBJS = $(SRCS:.c=.o)
-B_OBJS = $(B_SRCS:.c=.o)
 
 all: $(NAME)
 
@@ -66,7 +65,7 @@ $(NAME): ${OBJS}
 	ar rc ${NAME} ${OBJS}
 
 clean:
-	${RM} ${OBJS} ${B_OBJS}
+	${RM} ${OBJS}
 
 fclean: clean
 	${RM} ${NAME}
@@ -76,7 +75,4 @@ re: fclean all
 so:
 	gcc -shared -o libft.so ${SRCS} ${B_SRCS}
 
-bonus: ${B_OBJS} ${OBJS}
-	ar rc ${NAME} ${B_OBJS} ${OBJS}
-
-.PHONY: all clean fclean re so bonus
+.PHONY: all clean fclean re so

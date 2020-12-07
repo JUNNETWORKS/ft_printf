@@ -6,15 +6,15 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 02:58:56 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/11/09 01:34:30 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/08 00:50:07 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	num_len(const char *str)
+int			num_len(const char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (ft_isdigit(*str++))
