@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/06 07:43:11 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/09 02:38:53 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,20 @@ typedef struct s_fmt{
   unsigned long long digit;  // 数字の桁数
 } t_fmt;
 
-int ft_ispositive(int c);
-int parse_flag(const char *format, t_fmt **fmt_struct, va_list ap);
-int parse_width(const char *format, t_fmt **fmt_struct, va_list ap);
-int parse_precision(const char *format, t_fmt **fmt_struct, va_list ap);
-int parse_length(const char *format, t_fmt **fmt_struct);
-int parse_type(const char *format, t_fmt **fmt_struct);
-int output_int(t_fmt *fmt_struct, va_list ap);
-int output_uint(t_fmt *fmt_struct, va_list ap);
-int output_octal(t_fmt *fmt_struct, va_list ap);
-int output_hex_low(t_fmt *fmt_struct, va_list ap);
-int output_hex_up(t_fmt *fmt_struct, va_list ap);
-int output_char(t_fmt *fmt_struct, va_list ap);
-int output_string(t_fmt *fmt_struct, va_list ap);
-int output_POINTER(t_fmt *fmt_struct, va_list ap);
+t_fmt *new_t_fmt();
+bool is_unsigned_type(enum e_type type);
+
+void parse_flag(const char **format, t_fmt *fmt_data);
+void parse_width(const char **format, t_fmt *fmt_data, va_list ap);
+void parse_precision(const char **format, t_fmt *fmt_data, va_list ap);
+void parse_type(const char **format, t_fmt *fmt_data);
+
 int output_fmt(t_fmt *fmt_struct, va_list ap);
+void put_c_n_times(char c, long long n);
 int fmt_put_nbr(long long n, t_fmt *fmt_data, char **num, int len);
 int parse_and_write(va_list ap, const char**format);
+int write_char(t_fmt *fmt_data, va_list ap);
+int write_string(t_fmt *fmt_data, va_list ap);
 int write_fmt_data(t_fmt *fmt_data, va_list ap);
 int ft_printf(const char *format, ...);
 

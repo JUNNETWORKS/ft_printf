@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 00:05:30 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/08 00:51:57 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/08 02:22:57 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+# define FT_MAX(x,y) ((x) > (y) ? (x) : (y))
+# define FT_MIX(x,y) ((x) < (y) ? (x) : (y))
+# define FT_ABS(x) ((x) < 0 ? -(x) : (x))
 
 typedef struct		s_list
 {
