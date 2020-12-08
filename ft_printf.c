@@ -1,57 +1,86 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/02 22:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/03 14:33:32 by jtanaka          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// 適当にががーっと書くft_printf
 
-#include "libft/libft.h"
+/* メモ
+ *   処理としては大きく分けて2つある.
+ *     1. %から変換指定子までの情報を格納する処理
+ *     2. 格納した情報を元に出力する処理
+ */
+#include <stdarg.h>
+#include <unistd.h>
 #include "ft_printf.h"
+#include <stdio.h>
 
-// *formatは%の次の位置にポインタがある状態で渡される
-// 出力した文字数を返す
-int parse_and_write(const char **format, va_list ap)
+
+int ft_printf(const char*format, ...)
 {
-	t_fmt *fmt_struct;
-	/* フラグの解析 */
-	*format += parse_flag(*format, &fmt_struct, ap);
-	/* 最小フィールド幅 */
-	*format += parse_width(*format, &fmt_struct, ap);
-	/* 精度 */
-	*format += parse_precision(*format, &fmt_struct, ap);
-	/* 変換指定子 ('%'もここで処理する) */
-	*format += parse_type(*format, &fmt_struct);
-	/* 出力 */
-	return (output_fmt(fmt_struct, ap));
-}
+    // stdout に書き込んだ文字数
+    int write_size;
+    write_size = 0;
+    va_list ap;
+    va_start(ap, format);
 
-int ft_printf(const char *format, ...)
-{
-	int read_size;
-	va_list ap;  // 可変長引数の情報を保持している型であるva_listの変数を宣言
-	va_start(ap, format);  // 第二引数には可変長引数の数を渡す
-
-	read_size = 0;
-
-	// '%'が出るまではそのまま先頭から読み込んで出力する. '%'が出現した先を解析し, 構造体として保持する.
 	while (*format)
 	{
 		if (*format == '%'){
 			format++;
-			read_size += parse_and_write(&format, ap);
+			write_size += parse_and_write(ap, &format);
 		}
 		else{
-			write(1, format, 1);
-			read_size++;
+			write_size += write(1, format, 1);
+			format++;
 		}
-		format++;
 	}
-	va_end(ap);
-	return (read_size);
+	return (write_size);
 }
 
+// %の次の文字にポインタはセットされている
+int parse_and_write(va_list ap, const char**format)
+{
+	int write_size;
+	write_size = 0;
+
+	t_fmt *fmt_data = new_t_fmt();
+
+	// Flag
+	parse_flag(format, fmt_data);
+	// width
+	parse_width(format, fmt_data, ap);
+	// precision
+	parse_precision(format, fmt_data, ap);
+	// type
+	parse_type(format, fmt_data);
+	printf("\tflag: %d\n\twidth_opt: %d\n\twidth: %u\n\tprecision: %zd\n\ttype: %d\n", fmt_data->flag, fmt_data->width_opt, fmt_data->width, fmt_data->precision, fmt_data->type);
+
+	// 実際にstdoutに書き込む
+	write_size += write_fmt_data(fmt_data, ap);
+
+	free(fmt_data);
+	return (write_size);
+}
+
+int write_fmt_data(t_fmt *fmt_data, va_list ap)
+{
+	if (fmt_data->type == TYPE_PERCENT)
+	  return (write(1, "%", 1));
+	if (fmt_data->type == TYPE_CHAR)
+	  return (write_char(fmt_data, ap));
+	else if (fmt_data->type == TYPE_STRING)
+	  return (write_string(fmt_data, ap));
+	else if (fmt_data->type == TYPE_UINT || fmt_data->type == TYPE_HEX_LOW || fmt_data->type == TYPE_HEX_UP){
+	  long long n = va_arg(ap, long long);
+	  char *num;
+	  return(fmt_put_nbr(n, fmt_data, &num, 0));
+	}
+	else if (fmt_data->type == TYPE_INT){
+	  long long n = va_arg(ap, int);
+	  char *num;
+	  return(fmt_put_nbr(n, fmt_data, &num, 0));
+	}
+	else if (fmt_data->type == TYPE_POINTER){
+	  long long n = va_arg(ap, long long);
+	  write(1, "0x", 2);
+	  char *num;
+	  return(fmt_put_nbr((long long)n, fmt_data, &num, 0) + 2);
+	}
+	return (0);
+}
