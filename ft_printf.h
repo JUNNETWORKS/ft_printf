@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/10 05:03:24 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/10 05:38:28 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void put_c_n_times(char c, size_t n);
 // printf本体と出力系と変換系
 int ft_printf(const char *format, ...);
 int output_fmt(t_fmt *fmt_struct, va_list ap);
-int output_fmt_nbr(char *num, t_fmt *fmt_data);
+int output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus);
 int fmt_put_nbr(long long n, t_fmt *fmt_data, char **num, long long len);
 int write_char(va_list ap);
 int write_string(t_fmt *fmt_data, va_list ap);
