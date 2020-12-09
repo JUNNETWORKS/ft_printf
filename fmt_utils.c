@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 02:27:40 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/09 02:27:55 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/10 02:45:53 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,7 @@ t_fmt *new_t_fmt()
   return (fmt_data);
 }
 
+bool is_unsigned_type(enum e_type type)
+{
+  return (type == TYPE_UINT || type == TYPE_HEX_UP || type == TYPE_HEX_LOW || type == TYPE_POINTER);
+}

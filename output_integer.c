@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/09 02:40:24 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/10 02:46:46 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,30 @@ unsigned long long get_base(enum e_type type)
 }
 
 
-int output_fmt_nbr(char* num, t_fmt *fmt_data);
-int fmt_put_nbr(long long n, t_fmt *fmt_data, char **num, int len)
+int output_fmt_nbr(char* num, t_fmt *fmt_data)
+{
+	int output_precision = 0; // 精度のために出力する0の数
+	if (fmt_data->precision > fmt_data->digit)
+		output_precision = fmt_data->precision - fmt_data->digit;
+	int output_witdh = 0;  // widthを満たすために埋めるスペースの数
+	if (fmt_data->width > (output_precision + fmt_data->digit))
+		output_witdh = fmt_data->width - (output_precision + fmt_data->digit);
+	if (fmt_data->flag & LEFT_ALIGNED){
+		put_c_n_times('0', output_precision);
+		write(1, num, fmt_data->digit);
+		put_c_n_times(' ', output_witdh);
+	}else{
+		put_c_n_times(' ', output_witdh);
+		put_c_n_times('0', output_precision);
+		write(1, num, fmt_data->digit);
+	}
+	// printf("precision: %d, width: %d, digit: %llu", output_precision, output_witdh, fmt_data->digit);
+	fflush(stdout);
+	// fmt_data->digit が long long なので計算がおかしくなる (digitは初期化してないからかも)
+	return (output_witdh + output_precision + fmt_data->digit);  // write_size
+}
+
+int fmt_put_nbr(long long n, t_fmt *fmt_data, char **num, size_t len)
 {
 	unsigned long long un;
 	unsigned long long base;
@@ -53,29 +75,5 @@ int fmt_put_nbr(long long n, t_fmt *fmt_data, char **num, int len)
 	  return (write_size);
 	}
 	return (len);
-}
-
-#include <stdio.h>
-int output_fmt_nbr(char* num, t_fmt *fmt_data)
-{
-	int output_precision = 0; // 精度のために出力する0の数
-	if (fmt_data->precision > fmt_data->digit)
-		output_precision = fmt_data->precision - fmt_data->digit;
-	int output_witdh = 0;  // widthを満たすために埋めるスペースの数
-	if (fmt_data->width > (output_precision + fmt_data->digit))
-		output_witdh = fmt_data->width - (output_precision + fmt_data->digit);
-	if (fmt_data->flag & LEFT_ALIGNED){
-		put_c_n_times('0', output_precision);
-		write(1, num, fmt_data->digit);
-		put_c_n_times(' ', output_witdh);
-	}else{
-		put_c_n_times(' ', output_witdh);
-		put_c_n_times('0', output_precision);
-		write(1, num, fmt_data->digit);
-	}
-	// printf("precision: %d, width: %d, digit: %llu", output_precision, output_witdh, fmt_data->digit);
-	fflush(stdout);
-	// fmt_data->digit が long long なので計算がおかしくなる (digitは初期化してないからかも)
-	return (output_witdh + output_precision + fmt_data->digit);  // write_size
 }
 

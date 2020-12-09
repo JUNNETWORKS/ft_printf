@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/09 02:38:53 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/10 02:49:08 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>
+#include <stdio.h>
 # include "libft/libft.h"
 
 #define STR(var) #var   //引数にした変数を変数名を示す文字列リテラルとして返すマクロ関数
@@ -52,27 +53,33 @@ enum e_width_opt {
 typedef struct s_fmt{
   enum e_flag flag;
   enum e_width_opt width_opt;
-  unsigned int width;
-  ssize_t precision;
+  size_t width;
+  size_t precision;
   enum e_type type;
-  unsigned long long digit;  // 数字の桁数
+  size_t digit;  // 数字の桁数
 } t_fmt;
 
+// t_fmt
 t_fmt *new_t_fmt();
 bool is_unsigned_type(enum e_type type);
 
+// parsers
 void parse_flag(const char **format, t_fmt *fmt_data);
 void parse_width(const char **format, t_fmt *fmt_data, va_list ap);
 void parse_precision(const char **format, t_fmt *fmt_data, va_list ap);
 void parse_type(const char **format, t_fmt *fmt_data);
 
+// utils
+void put_c_n_times(char c, size_t n);
+
+// printf本体と出力系と変換系
+int ft_printf(const char *format, ...);
 int output_fmt(t_fmt *fmt_struct, va_list ap);
-void put_c_n_times(char c, long long n);
-int fmt_put_nbr(long long n, t_fmt *fmt_data, char **num, int len);
-int parse_and_write(va_list ap, const char**format);
-int write_char(t_fmt *fmt_data, va_list ap);
+int output_fmt_nbr(char* num, t_fmt *fmt_data);
+int fmt_put_nbr(long long n, t_fmt *fmt_data, char **num, size_t len);
+int write_char(va_list ap);
 int write_string(t_fmt *fmt_data, va_list ap);
 int write_fmt_data(t_fmt *fmt_data, va_list ap);
-int ft_printf(const char *format, ...);
+int parse_and_write(va_list ap, const char**format);
 
 #endif
