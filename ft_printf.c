@@ -68,7 +68,7 @@ int parse_and_write(va_list ap, const char **format)
 int write_fmt_data(t_fmt *fmt_data, va_list ap)
 {
 	if (fmt_data->type == TYPE_PERCENT)
-		return (write(1, "%", 1));
+		return (write_percent(fmt_data));
 	if (fmt_data->type == TYPE_CHAR)
 		return (write_char(ap));
 	else if (fmt_data->type == TYPE_STRING)
