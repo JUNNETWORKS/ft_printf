@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/10 06:57:54 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/10 07:45:25 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 	int output_witdh = 0; // widthを満たすために埋めるスペースの数
 	if (fmt_data->width > (output_precision + is_minus + fmt_data->digit))
 		output_witdh = fmt_data->width - (output_precision + is_minus + fmt_data->digit);
-	if (fmt_data->flag & FLAG_ZEROS)
+	if (fmt_data->flag & FLAG_ZEROS && fmt_data->precision <= 1)
 	{
 		output_precision += output_witdh;
 		output_witdh = 0;
