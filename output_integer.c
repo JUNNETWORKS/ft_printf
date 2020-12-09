@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/10 03:17:28 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/10 04:21:17 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int fmt_put_nbr(long long n, t_fmt *fmt_data, char **num, size_t len)
 {
 	unsigned long long un;
 	unsigned long long base;
-	int                write_size = 0;
+	int write_size = 0;
 
 	len++;
 	base = get_base(fmt_data->type);
@@ -55,14 +55,14 @@ int fmt_put_nbr(long long n, t_fmt *fmt_data, char **num, size_t len)
 
 int output_fmt_nbr(char *num, t_fmt *fmt_data)
 {
+	if (fmt_data->precision == 0 && *num == '0')
+		fmt_data->digit = 0;
 	int output_precision = 0; // 精度のために出力する0の数
 	if (fmt_data->precision > fmt_data->digit)
 		output_precision = fmt_data->precision - fmt_data->digit;
 	int output_witdh = 0; // widthを満たすために埋めるスペースの数
 	if (fmt_data->width > (output_precision + fmt_data->digit))
 		output_witdh = fmt_data->width - (output_precision + fmt_data->digit);
-	if (fmt_data->precision == 0 && *num == '0')
-		return (0);
 	if (fmt_data->flag & LEFT_ALIGNED)
 	{
 		put_c_n_times('0', output_precision);
@@ -75,7 +75,7 @@ int output_fmt_nbr(char *num, t_fmt *fmt_data)
 		put_c_n_times('0', output_precision);
 		write(1, num, fmt_data->digit);
 	}
-	// printf("precision: %d, width: %d, digit: %llu", output_precision, output_witdh, fmt_data->digit);
-	// fflush(stdout);
+	// printf("precision: %d, width: %d, digit: %llu", output_precision,
+	// output_witdh, fmt_data->digit); fflush(stdout);
 	return (output_witdh + output_precision + fmt_data->digit); // write_size
 }
