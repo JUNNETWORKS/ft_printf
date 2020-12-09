@@ -15,56 +15,68 @@
 
 void parse_flag(const char **format, t_fmt *fmt_data)
 {
-	while (**format && (**format == '0' || **format == '-')){
-	  if (**format == '0')
-		fmt_data->flag |= PREPEND_ZEROS;
-	  if (**format == '-')
-		fmt_data->flag |= LEFT_ALIGNED;
-	  (*format)++;
+	while (**format && (**format == '0' || **format == '-'))
+	{
+		if (**format == '0')
+			fmt_data->flag |= PREPEND_ZEROS;
+		if (**format == '-')
+			fmt_data->flag |= LEFT_ALIGNED;
+		(*format)++;
 	}
 }
 
 void parse_width(const char **format, t_fmt *fmt_data, va_list ap)
 {
 	// 引数で渡された値をwidthとして使用する
-	if (**format == '*'){
-	  int width = va_arg(ap, int);
-	  if (width < 0){
-		fmt_data->flag |= LEFT_ALIGNED;
-		width = -width;
-	  }
-	  fmt_data->width = (unsigned int)width;
-	  (*format)++;
-	}else if (ft_isdigit(**format)){
-	  int width = ft_atoi(*format);
-	  fmt_data->width = (unsigned int)width;
-	  (*format) += num_len(*format);
+	if (**format == '*')
+	{
+		int width = va_arg(ap, int);
+		if (width < 0)
+		{
+			fmt_data->flag |= LEFT_ALIGNED;
+			width = -width;
+		}
+		fmt_data->width = (unsigned int) width;
+		(*format)++;
+	}
+	else if (ft_isdigit(**format))
+	{
+		int width = ft_atoi(*format);
+		fmt_data->width = (unsigned int) width;
+		(*format) += num_len(*format);
 	}
 }
 
 void parse_precision(const char **format, t_fmt *fmt_data, va_list ap)
 {
-	if (**format == '.'){
-	  (*format)++;
-	  if (**format == '*'){
-		int precision = va_arg(ap, int);
-		if (precision < 0){
-		  fmt_data->precision = 0;
-		}else{
-		  fmt_data->precision = precision;
-		};
+	if (**format == '.')
+	{
 		(*format)++;
-	  }
-	  // 負の数が指定された場合は精度の指定は無し
-	  else if (**format == '-'){
-		(*format)++;
-		(*format) += num_len(*format);
-	  }
-	  // 数字が入力されていた場合
-	  else{
-		fmt_data->precision = ft_atoi(*format);
-		(*format) += num_len(*format);
-	  }
+		if (**format == '*')
+		{
+			int precision = va_arg(ap, int);
+			if (precision < 0)
+			{
+				fmt_data->precision = 0;
+			}
+			else
+			{
+				fmt_data->precision = precision;
+			};
+			(*format)++;
+		}
+		// 負の数が指定された場合は精度の指定は無し
+		else if (**format == '-')
+		{
+			(*format)++;
+			(*format) += num_len(*format);
+		}
+		// 数字が入力されていた場合
+		else
+		{
+			fmt_data->precision = ft_atoi(*format);
+			(*format) += num_len(*format);
+		}
 	}
 }
 

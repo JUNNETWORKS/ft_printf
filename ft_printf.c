@@ -5,28 +5,29 @@
  *     1. %から変換指定子までの情報を格納する処理
  *     2. 格納した情報を元に出力する処理
  */
-#include <stdarg.h>
-#include <unistd.h>
 #include "ft_printf.h"
+#include <stdarg.h>
 #include <stdio.h>
+#include <unistd.h>
 
-
-int ft_printf(const char*format, ...)
+int ft_printf(const char *format, ...)
 {
-    // stdout に書き込んだ文字数
-    int write_size;
+	// stdout に書き込んだ文字数
+	int write_size;
 
-    write_size = 0;
-    va_list ap;
-    va_start(ap, format);
+	write_size = 0;
+	va_list ap;
+	va_start(ap, format);
 
 	while (*format)
 	{
-		if (*format == '%'){
+		if (*format == '%')
+		{
 			format++;
 			write_size += parse_and_write(ap, &format);
 		}
-		else{
+		else
+		{
 			write_size += write(1, format, 1);
 			format++;
 		}
@@ -35,7 +36,7 @@ int ft_printf(const char*format, ...)
 }
 
 // %の次の文字にポインタはセットされている
-int parse_and_write(va_list ap, const char**format)
+int parse_and_write(va_list ap, const char **format)
 {
 	int write_size;
 	write_size = 0;
@@ -50,7 +51,10 @@ int parse_and_write(va_list ap, const char**format)
 	parse_precision(format, fmt_data, ap);
 	// type
 	parse_type(format, fmt_data);
-	printf("\tflag: %d\n\twidth_opt: %d\n\twidth: %ld\n\tprecision: %zd\n\ttype: %d\n", fmt_data->flag, fmt_data->width_opt, fmt_data->width, fmt_data->precision, fmt_data->type);
+	/*printf("\tflag: %d\n\twidth_opt: %d\n\twidth: %ld\n\tprecision: "
+	       "%zd\n\ttype: %d\n",
+	       fmt_data->flag, fmt_data->width_opt, fmt_data->width, fmt_data->precision,
+	       fmt_data->type);*/
 
 	// 実際にstdoutに書き込む
 	write_size += write_fmt_data(fmt_data, ap);
@@ -62,26 +66,29 @@ int parse_and_write(va_list ap, const char**format)
 int write_fmt_data(t_fmt *fmt_data, va_list ap)
 {
 	if (fmt_data->type == TYPE_PERCENT)
-	  return (write(1, "%", 1));
+		return (write(1, "%", 1));
 	if (fmt_data->type == TYPE_CHAR)
-	  return (write_char(ap));
+		return (write_char(ap));
 	else if (fmt_data->type == TYPE_STRING)
-	  return (write_string(fmt_data, ap));
-	else if (fmt_data->type == TYPE_UINT || fmt_data->type == TYPE_HEX_LOW || fmt_data->type == TYPE_HEX_UP){
-	  long long n = va_arg(ap, long long);
-	  char *num;
-	  return(fmt_put_nbr(n, fmt_data, &num, 0));
+		return (write_string(fmt_data, ap));
+	else if (fmt_data->type == TYPE_UINT || fmt_data->type == TYPE_HEX_LOW || fmt_data->type == TYPE_HEX_UP)
+	{
+		long long n = va_arg(ap, long long);
+		char *    num;
+		return (fmt_put_nbr(n, fmt_data, &num, 0));
 	}
-	else if (fmt_data->type == TYPE_INT){
-	  long long n = va_arg(ap, int);
-	  char *num;
-	  return(fmt_put_nbr(n, fmt_data, &num, 0));
+	else if (fmt_data->type == TYPE_INT)
+	{
+		long long n = va_arg(ap, int);
+		char *    num;
+		return (fmt_put_nbr(n, fmt_data, &num, 0));
 	}
-	else if (fmt_data->type == TYPE_POINTER){
-	  long long n = va_arg(ap, long long);
-	  write(1, "0x", 2);
-	  char *num;
-	  return(fmt_put_nbr((long long)n, fmt_data, &num, 0) + 2);
+	else if (fmt_data->type == TYPE_POINTER)
+	{
+		long long n = va_arg(ap, long long);
+		write(1, "0x", 2);
+		char *num;
+		return (fmt_put_nbr((long long) n, fmt_data, &num, 0) + 2);
 	}
 	return (0);
 }

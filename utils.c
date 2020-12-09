@@ -14,11 +14,10 @@
 
 void put_c_n_times(char c, size_t n)
 {
-  if (n <= 0)
-	  return;
-  size_t i;
-  i = 0;
-  while (i++ < n)
-	write(1, &c, 1);
+	if (n <= 0)
+		return;
+	size_t i;
+	i = 0;
+	while (i++ < n)
+		write(1, &c, 1);
 }
-
