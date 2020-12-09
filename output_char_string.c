@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:38:46 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/10 06:56:40 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/10 08:39:31 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int write_string(t_fmt *fmt_data, va_list ap)
 	str            = (const char *) va_arg(ap, const char *);
 	output_str_len = ft_strlen(str);
 	output_width   = 0;
-	if (fmt_data->precision > 0 && output_str_len > fmt_data->precision)
+	if (fmt_data->precision >= 0 && output_str_len > fmt_data->precision)
 		output_str_len = fmt_data->precision;
 	if (fmt_data->width > output_str_len)
 		output_width = fmt_data->width - output_str_len;
@@ -42,7 +42,10 @@ int write_string(t_fmt *fmt_data, va_list ap)
 	}
 	else
 	{
-		put_c_n_times(' ', output_width);
+		if (fmt_data->flag & FLAG_ZEROS)
+			put_c_n_times('0', output_width);
+		else
+			put_c_n_times(' ', output_width);
 		write(1, str, output_str_len);
 	}
 	return (output_width + output_str_len);
