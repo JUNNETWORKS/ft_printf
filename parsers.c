@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 01:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/09 02:35:32 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/10 05:11:30 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,11 @@ void parse_precision(const char **format, t_fmt *fmt_data, va_list ap)
 		(*format)++;
 		if (**format == '*')
 		{
-			int precision = va_arg(ap, int);
+			long long precision = va_arg(ap, long long);
 			if (precision < 0)
-			{
 				fmt_data->precision = 0;
-			}
 			else
-			{
 				fmt_data->precision = precision;
-			};
 			(*format)++;
 		}
 		// 負の数が指定された場合は精度の指定は無し
@@ -98,5 +94,8 @@ void parse_type(const char **format, t_fmt *fmt_data)
 		fmt_data->type = TYPE_POINTER;
 	else if (**format == '%')
 		fmt_data->type = TYPE_PERCENT;
+	if (fmt_data->type == TYPE_INT || fmt_data->type == TYPE_UINT || fmt_data->type == TYPE_HEX_LOW || fmt_data->type == TYPE_HEX_UP || fmt_data->type == TYPE_POINTER)
+		if (fmt_data->precision == -1)
+			fmt_data->precision = 1;
 	(*format)++;
 }

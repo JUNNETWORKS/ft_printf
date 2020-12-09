@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:38:46 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/10 02:43:56 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/10 05:02:47 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int write_char(va_list ap)
 int write_string(t_fmt *fmt_data, va_list ap)
 {
 	const char *str;
-	size_t output_str_len;
-	size_t output_width; // 最少フィールド幅のために出力する空白の数
+	long long output_str_len;
+	long long output_width; // 最少フィールド幅のために出力する空白の数
 
 	str = (const char *) va_arg(ap, const char *);
 	output_str_len = ft_strlen(str);

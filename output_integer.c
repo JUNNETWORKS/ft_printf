@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/10 04:21:17 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/10 05:03:08 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ unsigned long long get_base(enum e_type type)
 		return 10;
 }
 
-int fmt_put_nbr(long long n, t_fmt *fmt_data, char **num, size_t len)
+int fmt_put_nbr(long long n, t_fmt *fmt_data, char **num, long long len)
 {
 	unsigned long long un;
 	unsigned long long base;
