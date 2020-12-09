@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 01:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/10 06:57:03 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/10 07:06:45 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,8 @@ void parse_precision(const char **format, t_fmt *fmt_data, va_list ap)
 		(*format)++;
 		if (**format == '*')
 		{
-			long long precision = va_arg(ap, long long);
-			if (precision < 0)
-				fmt_data->precision = 0;
-			else
+			long long precision = va_arg(ap, int);
+			if (precision >= 0)
 				fmt_data->precision = precision;
 			(*format)++;
 		}
