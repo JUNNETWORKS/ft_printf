@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/10 05:40:24 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/10 06:01:47 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,18 @@ int output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 		output_witdh = fmt_data->width - (output_precision + is_minus + fmt_data->digit);
 	if (fmt_data->flag & LEFT_ALIGNED)
 	{
-		put_c_n_times('0', output_precision);
 		if (is_minus)
 		  write(1, "-", 1);
+		put_c_n_times('0', output_precision);
 		write(1, num, fmt_data->digit);
 		put_c_n_times(' ', output_witdh);
 	}
 	else
 	{
 		put_c_n_times(' ', output_witdh);
-		put_c_n_times('0', output_precision);
 		if (is_minus)
 		  write(1, "-", 1);
+		put_c_n_times('0', output_precision);
 		write(1, num, fmt_data->digit);
 	}
 	// printf("precision: %d, width: %d, digit: %llu", output_precision,
