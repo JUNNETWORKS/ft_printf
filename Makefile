@@ -6,13 +6,14 @@
 #    By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/07 22:12:52 by jtanaka           #+#    #+#              #
-#    Updated: 2020/12/10 02:47:29 by jtanaka          ###   ########.fr        #
+#    Updated: 2020/12/10 08:54:50 by jtanaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = ft_printf.c \
 	   output_char_string.c \
 	   output_integer.c \
+	   output_percent.c \
 	   parsers.c \
 	   fmt_utils.c \
 	   utils.c
