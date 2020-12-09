@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/10 05:38:28 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/10 06:56:39 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 enum e_flag
 {
 	FLAG_NONE = 0b00000,
-	LEFT_ALIGNED = 0b00001, // %- フィールドの左寄せ Mandatory
-	PREPEND_SIGN = 0b00010, // %+ 常に符号を付ける
-	PREPEND_SPACE = 0b00100, // %  数値が正または 0 の場合は符号の代わりに空白を出力
-	PREPEND_PREFIX = 0b01000, // %# 代替形式。基数を表すプレフィックスの出力等
-	PREPEND_ZEROS = 0b10000 // %0 出力文字数が最小フィールド幅未満の場合は'0'を出力 Mandatory
+	FLAG_LEFT = 0b00001, // %- フィールドの左寄せ Mandatory
+	FLAG_SIGN = 0b00010, // %+ 常に符号を付ける
+	FLAG_SPACE = 0b00100, // %  数値が正または 0 の場合は符号の代わりに空白を出力
+	FLAG_PREFIX = 0b01000, // %# 代替形式。基数を表すプレフィックスの出力等
+	FLAG_ZEROS = 0b10000 // %0 出力文字数が最小フィールド幅未満の場合は'0'を出力 Mandatory
 };
 
 enum e_type

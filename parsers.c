@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 01:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/10 05:11:30 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/10 06:57:03 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void parse_flag(const char **format, t_fmt *fmt_data)
 	while (**format && (**format == '0' || **format == '-'))
 	{
 		if (**format == '0')
-			fmt_data->flag |= PREPEND_ZEROS;
+			fmt_data->flag |= FLAG_ZEROS;
 		if (**format == '-')
-			fmt_data->flag |= LEFT_ALIGNED;
+			fmt_data->flag |= FLAG_LEFT;
 		(*format)++;
 	}
 }
@@ -33,7 +33,7 @@ void parse_width(const char **format, t_fmt *fmt_data, va_list ap)
 		int width = va_arg(ap, int);
 		if (width < 0)
 		{
-			fmt_data->flag |= LEFT_ALIGNED;
+			fmt_data->flag |= FLAG_LEFT;
 			width = -width;
 		}
 		fmt_data->width = (unsigned int) width;
