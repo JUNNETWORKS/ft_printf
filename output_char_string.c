@@ -24,7 +24,7 @@ int write_char(va_list ap)
 int write_string(t_fmt *fmt_data, va_list ap)
 {
 	const char *str;
-	size_t      output_str_len;
+	size_t output_str_len;
 	size_t output_width; // 最少フィールド幅のために出力する空白の数
 
 	str = (const char *) va_arg(ap, const char *);
