@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/10 08:25:41 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/10 10:49:44 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 		if (is_minus)
 		  write(1, "-", 1);
 		put_c_n_times('0', output_precision);
+		if (fmt_data->type == TYPE_POINTER)
+			write(1, "0x", 2);
 		write(1, num, fmt_data->digit);
 		put_c_n_times(' ', output_witdh);
 	}
@@ -84,6 +86,8 @@ int output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 		put_c_n_times(' ', output_witdh);
 		if (is_minus)
 		  write(1, "-", 1);
+		if (fmt_data->type == TYPE_POINTER)
+			write(1, "0x", 2);
 		put_c_n_times('0', output_precision);
 		write(1, num, fmt_data->digit);
 	}
