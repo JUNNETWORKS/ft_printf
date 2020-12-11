@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/12 03:02:59 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/12 03:13:15 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ int write_integer(t_fmt *fmt_data, long long n)
 	if (num == NULL)
 		return (0);
 	// TODO: 出力関数は関数ポインタで分岐するようにする.
-	printf("num: %s\n", num);
 	write_size = output_fmt_nbr(num, fmt_data, n < 0 ? 1 : 0);
-	printf("\nwrite_size: %d\n", write_size);
 	free(num);
 	return (write_size);
 }
@@ -46,9 +44,7 @@ int fmt_itoa(long long n, t_fmt *fmt_data, char **num, long long len)
 
 	len++;
 	base = get_base(fmt_data->type);
-	printf("\nn: %lld\n", n);
 	un = (is_unsigned_type(fmt_data->type) || n >= 0) ? n : -n;
-	printf("\nun: %llu\n", un);
 	if (un >= base)
 		len = fmt_itoa(un / base, fmt_data, num, len);
 	else
