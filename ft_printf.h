@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/10 08:52:37 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/12 03:04:42 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,16 @@ void parse_precision(const char **format, t_fmt *fmt_data, va_list ap);
 void parse_type(const char **format, t_fmt *fmt_data);
 
 // utils
-void put_c_n_times(char c, size_t n);
+int put_c_n_times(char c, int n);
 
 // printf本体と出力系と変換系
 int ft_printf(const char *format, ...);
 int output_fmt(t_fmt *fmt_struct, va_list ap);
 int output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus);
-int fmt_put_nbr(long long n, t_fmt *fmt_data, char **num, long long len);
+int fmt_itoa(long long n, t_fmt *fmt_data, char **num, long long len);
 int write_char(va_list ap);
 int write_string(t_fmt *fmt_data, va_list ap);
+int write_integer(t_fmt *fmt_data, long long n);
 int write_percent(t_fmt *fmt_data);
 int write_fmt_data(t_fmt *fmt_data, va_list ap);
 int parse_and_write(va_list ap, const char **format);

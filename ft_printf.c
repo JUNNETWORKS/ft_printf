@@ -76,20 +76,17 @@ int write_fmt_data(t_fmt *fmt_data, va_list ap)
 	else if (fmt_data->type == TYPE_UINT || fmt_data->type == TYPE_HEX_LOW || fmt_data->type == TYPE_HEX_UP)
 	{
 		long long n = va_arg(ap, long long);
-		char *num;
-		return (fmt_put_nbr(n, fmt_data, &num, 0));
+		return (write_integer(fmt_data, n));
 	}
 	else if (fmt_data->type == TYPE_INT)
 	{
 		long long n = va_arg(ap, int);
-		char *num;
-		return (fmt_put_nbr(n, fmt_data, &num, 0));
+		return (write_integer(fmt_data, n));
 	}
 	else if (fmt_data->type == TYPE_POINTER)
 	{
 		long long n = va_arg(ap, long long);
-		char *num;
-		return (fmt_put_nbr((long long) n, fmt_data, &num, 0) + 2);
+		return (write_integer(fmt_data, n));
 	}
 	return (0);
 }
