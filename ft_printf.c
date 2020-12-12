@@ -70,7 +70,7 @@ int write_fmt_data(t_fmt *fmt_data, va_list ap)
 	if (fmt_data->type == TYPE_PERCENT)
 		return (write_percent(fmt_data));
 	if (fmt_data->type == TYPE_CHAR)
-		return (write_char(ap));
+		return (write_char(fmt_data, ap));
 	else if (fmt_data->type == TYPE_STRING)
 		return (write_string(fmt_data, ap));
 	else if (fmt_data->type == TYPE_UINT || fmt_data->type == TYPE_HEX_LOW || fmt_data->type == TYPE_HEX_UP)

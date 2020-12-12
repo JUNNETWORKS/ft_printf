@@ -6,19 +6,26 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:38:46 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/10 08:44:20 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/13 02:37:39 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-int write_char(va_list ap)
+int write_char(t_fmt *fmt_data, va_list ap)
 {
 	unsigned char c;
+	int write_size;
 
+	write_size = 0;
 	c = (unsigned char) va_arg(ap, int);
-	return (write(1, &c, 1));
+	if (fmt_data->width > 0 && fmt_data->flag & FLAG_LEFT)
+		write_size += write(1, " ", fmt_data->width);
+	write_size += write(1, &c, 1);
+	if (fmt_data->width > 0 && !(fmt_data->flag & FLAG_LEFT))
+		write_size += write(1, " ", fmt_data->width);
+	return (write_size);
 }
 
 int write_string(t_fmt *fmt_data, va_list ap)
