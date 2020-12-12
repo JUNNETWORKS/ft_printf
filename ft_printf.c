@@ -51,12 +51,11 @@ int parse_and_write(va_list ap, const char **format)
 	parse_precision(format, fmt_data, ap);
 	// type
 	parse_type(format, fmt_data);
-	/*
-	printf("\tflag: %d\n\twidth_opt: %d\n\twidth: %lld\n\tprecision: "
+	
+	/*printf("\tflag: %d\n\twidth_opt: %d\n\twidth: %lld\n\tprecision: "
 	       "%lld\n\ttype: %d\n",
 	       fmt_data->flag, fmt_data->width_opt, fmt_data->width,
-	   fmt_data->precision, fmt_data->type);
-	*/
+	   fmt_data->precision, fmt_data->type);*/
 
 	// 実際にstdoutに書き込む
 	write_size += write_fmt_data(fmt_data, ap);
