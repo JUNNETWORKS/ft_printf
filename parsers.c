@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 01:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/13 02:50:11 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/13 03:04:06 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void parse_flag(const char **format, t_fmt *fmt_data)
 			fmt_data->flag |= FLAG_LEFT;
 		(*format)++;
 	}
+	if (fmt_data->flag & FLAG_LEFT && fmt_data->flag & FLAG_ZEROS)
+		fmt_data->flag = FLAG_LEFT;
 }
 
 void parse_width(const char **format, t_fmt *fmt_data, va_list ap)
@@ -34,6 +36,8 @@ void parse_width(const char **format, t_fmt *fmt_data, va_list ap)
 		if (width < 0)
 		{
 			fmt_data->flag |= FLAG_LEFT;
+			if (fmt_data->flag & FLAG_ZEROS)
+				fmt_data->flag = FLAG_LEFT;
 			width = -width;
 		}
 		fmt_data->width = (unsigned int) width;
