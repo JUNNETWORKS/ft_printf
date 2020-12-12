@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/12 03:13:15 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/13 02:48:36 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,19 @@ int output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 	int output_precision;
 	int output_witdh;
 	int write_size;
+	int is_pointer;
 	output_precision = 0; // 精度のために出力する0の数
 	output_witdh = 0; // widthを満たすために埋めるスペースの数
 	write_size = 0;
+	is_pointer = fmt_data->type == TYPE_POINTER ? 2 : 0;
+
 
 	if (fmt_data->precision == 0 && *num == '0')
 		fmt_data->digit = 0;
 	if (fmt_data->precision > fmt_data->digit)
 		output_precision = fmt_data->precision - fmt_data->digit;
-	if (fmt_data->width > (output_precision + is_minus + fmt_data->digit))
-		output_witdh = fmt_data->width - (output_precision + is_minus + fmt_data->digit);
+	if (fmt_data->width > (output_precision + is_minus + is_pointer + fmt_data->digit))
+		output_witdh = fmt_data->width - (output_precision + is_minus + is_pointer + fmt_data->digit);
 	if (fmt_data->flag & FLAG_ZEROS && fmt_data->precision <= 1)
 	{
 		output_precision += output_witdh;
@@ -87,7 +90,7 @@ int output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 		if (is_minus)
 		  write_size += write(1, "-", 1);
 		write_size += put_c_n_times('0', output_precision);
-		if (fmt_data->type == TYPE_POINTER)
+		if (is_pointer)
 			write_size += write(1, "0x", 2);
 		write_size += write(1, num, fmt_data->digit);
 		write_size += put_c_n_times(' ', output_witdh);
@@ -97,7 +100,7 @@ int output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 		write_size += put_c_n_times(' ', output_witdh);
 		if (is_minus)
 		write_size += write(1, "-", 1);
-		if (fmt_data->type == TYPE_POINTER)
+		if (is_pointer)
 			write_size += write(1, "0x", 2);
 		write_size += put_c_n_times('0', output_precision);
 		write_size += write(1, num, fmt_data->digit);
