@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:38:46 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/13 02:43:37 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/13 03:09:01 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int write_char(t_fmt *fmt_data, va_list ap)
 	write_size = 0;
 	c = (unsigned char) va_arg(ap, int);
 	if (fmt_data->width > 0 && fmt_data->flag & FLAG_LEFT)
-		write_size += write(1, " ", fmt_data->width - 1);
+		write_size +=-put_c_n_times(' ', fmt_data->width - 1);
 	write_size += write(1, &c, 1);
 	if (fmt_data->width > 0 && !(fmt_data->flag & FLAG_LEFT))
-		write_size += write(1, " ", fmt_data->width - 1);
+		write_size +=-put_c_n_times(' ', fmt_data->width - 1);
 	return (write_size);
 }
 
