@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 02:39:12 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 08:55:35 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 08:56:23 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int		put_c_n_times(char c, int n)
 {
 	int i;
-	i = 0;
 
+	i = 0;
 	if (n <= 0)
 		return (0);
 	while (i++ < n)
