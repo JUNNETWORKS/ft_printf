@@ -6,19 +6,19 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 02:39:12 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 08:53:15 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 08:55:35 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-
 int		put_c_n_times(char c, int n)
 {
-	if (n <= 0)
-		return (0);
 	int i;
 	i = 0;
+
+	if (n <= 0)
+		return (0);
 	while (i++ < n)
 		write(1, &c, 1);
 	return (n);
