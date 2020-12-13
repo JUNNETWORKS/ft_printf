@@ -6,14 +6,14 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 01:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 07:24:00 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 08:49:00 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-void parse_flag(const char **format, t_fmt *fmt_data)
+void	parse_flag(const char **format, t_fmt *fmt_data)
 {
 	while (**format && (**format == '0' || **format == '-'))
 	{
@@ -27,7 +27,7 @@ void parse_flag(const char **format, t_fmt *fmt_data)
 		fmt_data->flag = FLAG_LEFT;
 }
 
-void parse_width(const char **format, t_fmt *fmt_data, va_list ap)
+void	parse_width(const char **format, t_fmt *fmt_data, va_list ap)
 {
 	if (**format == '*')
 	{
@@ -50,7 +50,7 @@ void parse_width(const char **format, t_fmt *fmt_data, va_list ap)
 	}
 }
 
-void parse_precision(const char **format, t_fmt *fmt_data, va_list ap)
+void	parse_precision(const char **format, t_fmt *fmt_data, va_list ap)
 {
 	if (**format == '.')
 	{
@@ -75,7 +75,7 @@ void parse_precision(const char **format, t_fmt *fmt_data, va_list ap)
 	}
 }
 
-void parse_type(const char **format, t_fmt *fmt_data)
+void	parse_type(const char **format, t_fmt *fmt_data)
 {
 	if (**format == 'd' || **format == 'i')
 		fmt_data->type = TYPE_INT;

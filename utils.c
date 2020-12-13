@@ -6,13 +6,13 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 02:39:12 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/12 02:11:28 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 08:49:06 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int put_c_n_times(char c, int n)
+int		put_c_n_times(char c, int n)
 {
 	if (n <= 0)
 		return (0);

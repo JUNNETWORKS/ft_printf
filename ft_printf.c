@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 07:20:53 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 07:27:44 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 08:44:31 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 #include <stdio.h>
 #include <unistd.h>
 
-int ft_printf(const char *format, ...)
+int		ft_printf(const char *format, ...)
 {
-	int write_size;
-	va_list ap;
+	int		write_size;
+	va_list	ap;
 
 	write_size = 0;
 	va_start(ap, format);
-
 	while (*format)
 	{
 		if (*format == '%')
@@ -39,10 +38,10 @@ int ft_printf(const char *format, ...)
 	return (write_size);
 }
 
-int parse_and_write(va_list ap, const char **format)
+int		parse_and_write(va_list ap, const char **format)
 {
-	int write_size;
-	t_fmt *fmt_data;
+	int		write_size;
+	t_fmt	*fmt_data;
 
 	write_size = 0;
 	fmt_data = new_t_fmt();
@@ -56,9 +55,9 @@ int parse_and_write(va_list ap, const char **format)
 	return (write_size);
 }
 
-int write_fmt_data(t_fmt *fmt_data, va_list ap)
+int		write_fmt_data(t_fmt *fmt_data, va_list ap)
 {
-	long long n;
+	long long	n;
 	if (fmt_data->type == TYPE_PERCENT)
 		return (write_percent(fmt_data));
 	if (fmt_data->type == TYPE_CHAR)

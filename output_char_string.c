@@ -6,17 +6,17 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:38:46 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/13 03:21:38 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 08:46:37 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-int write_char(t_fmt *fmt_data, va_list ap)
+int		write_char(t_fmt *fmt_data, va_list ap)
 {
-	unsigned char c;
-	int write_size;
+	unsigned char	c;
+	int				write_size;
 
 	write_size = 0;
 	c = (unsigned char) va_arg(ap, int);
@@ -28,11 +28,11 @@ int write_char(t_fmt *fmt_data, va_list ap)
 	return (write_size);
 }
 
-int write_string(t_fmt *fmt_data, va_list ap)
+int		write_string(t_fmt *fmt_data, va_list ap)
 {
-	const char *str;
-	long long output_str_len;
-	long long output_width; // 最少フィールド幅のために出力する空白の数
+	const char	*str;
+	long long	output_str_len;
+	long long	output_width;
 
 	str            = (const char *) va_arg(ap, const char *);
 	str            = str ? str : "(null)";

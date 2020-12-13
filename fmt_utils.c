@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 02:27:40 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 06:47:32 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 08:43:36 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 t_fmt *new_t_fmt()
 {
-	t_fmt *fmt_data = malloc(sizeof(t_fmt));
+	t_fmt *fmt_data;
+	
+	fmt_data = malloc(sizeof(t_fmt));
 	fmt_data->flag = FLAG_NONE;
 	fmt_data->precision = -1;
 	fmt_data->type = TYPE_NONE;

@@ -6,15 +6,15 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 08:46:42 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/10 08:56:49 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 08:48:28 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int write_percent(t_fmt *fmt_data)
+int		write_percent(t_fmt *fmt_data)
 {
-	int output_width;
+	int		output_width;
 
 	output_width = 0;
 	if (fmt_data->width > 0)

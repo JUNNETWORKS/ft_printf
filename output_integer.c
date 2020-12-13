@@ -6,14 +6,14 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 07:23:29 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 08:48:17 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-unsigned long long get_base(enum e_type type)
+unsigned long long	get_base(enum e_type type)
 {
 	if (type == TYPE_HEX_LOW || type == TYPE_HEX_UP || type == TYPE_POINTER)
 		return 16;
@@ -21,26 +21,24 @@ unsigned long long get_base(enum e_type type)
 		return 10;
 }
 
-int write_integer(t_fmt *fmt_data, long long n)
+int					write_integer(t_fmt *fmt_data, long long n)
 {
-	char *num;
-	int write_size;
+	char	*num;
+	int		write_size;
 
 	fmt_itoa(n, fmt_data, &num, 0);
 	if (num == NULL)
 		return (0);
-	// TODO: 出力関数は関数ポインタで分岐するようにする.
 	write_size = output_fmt_nbr(num, fmt_data, (n < 0 && !is_unsigned_type(fmt_data->type)) ? 1 : 0);
 	free(num);
 	return (write_size);
 }
-	
 
-// 関数ポインタを渡してコールバック関数のようにするか?
-int fmt_itoa(long long n, t_fmt *fmt_data, char **num, long long len)
+
+int					fmt_itoa(long long n, t_fmt *fmt_data, char **num, long long len)
 {
-	unsigned long long un;
-	unsigned long long base;
+	unsigned long long	un;
+	unsigned long long	base;
 
 	len++;
 	base = get_base(fmt_data->type);
@@ -63,18 +61,17 @@ int fmt_itoa(long long n, t_fmt *fmt_data, char **num, long long len)
 }
 
 
-int output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
+int					output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 {
-	int output_precision;
-	int output_width;
-	int write_size;
-	int is_pointer;
+	int		output_precision;
+	int		output_width;
+	int		write_size;
+	int		is_pointer;
+
 	output_precision = 0;
 	output_width = 0;
 	write_size = 0;
 	is_pointer = fmt_data->type == TYPE_POINTER ? 2 : 0;
-
-
 	if (fmt_data->precision == 0 && *num == '0')
 		fmt_data->digit = 0;
 	if (fmt_data->precision > fmt_data->digit)
@@ -106,7 +103,5 @@ int output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 		write_size += put_c_n_times('0', output_precision);
 		write_size += write(1, num, fmt_data->digit);
 	}
-	// printf("precision: %d, width: %d, digit: %llu", output_precision,
-	// output_width, fmt_data->digit); fflush(stdout);
-	return (write_size); // write_size
+	return (write_size);
 }
