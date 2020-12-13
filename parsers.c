@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 01:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 06:30:20 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 07:07:17 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ void parse_precision(const char **format, t_fmt *fmt_data, va_list ap)
 			(*format) += num_len(*format);
 		}
 	}
-	if (fmt_data->precision != -1 && fmt_data->flag & FLAG_ZEROS)
-		fmt_data->flag &= ~FLAG_ZEROS;
 }
 
 void parse_type(const char **format, t_fmt *fmt_data)
@@ -101,6 +99,9 @@ void parse_type(const char **format, t_fmt *fmt_data)
 		fmt_data->type = TYPE_PERCENT;
 	else
 		return;
+	if (fmt_data->type == TYPE_INT || fmt_data->type == TYPE_UINT || fmt_data->type == TYPE_HEX_LOW || fmt_data->type == TYPE_HEX_UP)
+		if (fmt_data->precision > 0)
+			fmt_data->flag &= ~FLAG_ZEROS;
 	if (fmt_data->type == TYPE_INT || fmt_data->type == TYPE_UINT || fmt_data->type == TYPE_HEX_LOW || fmt_data->type == TYPE_HEX_UP || fmt_data->type == TYPE_POINTER)
 		if (fmt_data->precision == -1)
 			fmt_data->precision = 1;
