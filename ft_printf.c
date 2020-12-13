@@ -74,7 +74,7 @@ int write_fmt_data(t_fmt *fmt_data, va_list ap)
 		return (write_string(fmt_data, ap));
 	else if (fmt_data->type == TYPE_UINT || fmt_data->type == TYPE_HEX_LOW || fmt_data->type == TYPE_HEX_UP)
 	{
-		long long n = va_arg(ap, long long);
+		long long n = (unsigned int)va_arg(ap, int);
 		return (write_integer(fmt_data, n));
 	}
 	else if (fmt_data->type == TYPE_INT)
