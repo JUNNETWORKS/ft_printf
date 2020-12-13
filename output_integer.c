@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 08:48:17 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 08:58:47 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 unsigned long long	get_base(enum e_type type)
 {
 	if (type == TYPE_HEX_LOW || type == TYPE_HEX_UP || type == TYPE_POINTER)
-		return 16;
+		return (16);
 	else
-		return 10;
+		return (10);
 }
 
 int					write_integer(t_fmt *fmt_data, long long n)
@@ -29,13 +29,14 @@ int					write_integer(t_fmt *fmt_data, long long n)
 	fmt_itoa(n, fmt_data, &num, 0);
 	if (num == NULL)
 		return (0);
-	write_size = output_fmt_nbr(num, fmt_data, (n < 0 && !is_unsigned_type(fmt_data->type)) ? 1 : 0);
+	write_size = output_fmt_nbr(num, fmt_data,
+						(n < 0 && !is_unsigned_type(fmt_data->type)) ? 1 : 0);
 	free(num);
 	return (write_size);
 }
 
-
-int					fmt_itoa(long long n, t_fmt *fmt_data, char **num, long long len)
+int					fmt_itoa(long long n, t_fmt *fmt_data,
+								char **num, long long len)
 {
 	unsigned long long	un;
 	unsigned long long	base;
