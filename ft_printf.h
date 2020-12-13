@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/13 02:34:05 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 06:47:02 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,9 @@ enum e_type
 	TYPE_HEX_UP = 8,
 };
 
-enum e_width_opt
-{
-	WIDTH_OPT_NONE = 0, // 特に特別なwidthオプションはない.
-	WIDTH_OPT_ARG = 1,  // 引数で渡された値をwidthとして使用する
-	WIDTH_OPT_PREPEND_ZEROS = 2, // (数字)先頭に0が付いていたら. 余白を0で埋める.
-};
-
 typedef struct s_fmt
 {
 	enum e_flag flag;
-	enum e_width_opt width_opt;
 	long long width;
 	long long precision;
 	enum e_type type;

@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 02:27:40 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/10 04:43:08 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 06:47:32 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_fmt *new_t_fmt()
 	fmt_data->precision = -1;
 	fmt_data->type = TYPE_NONE;
 	fmt_data->width = 0;
-	fmt_data->width_opt = WIDTH_OPT_NONE;
 	fmt_data->digit = 0;
 	return (fmt_data);
 }
