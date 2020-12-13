@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 04:12:23 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 06:12:32 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int write_integer(t_fmt *fmt_data, long long n)
 	if (num == NULL)
 		return (0);
 	// TODO: 出力関数は関数ポインタで分岐するようにする.
-	write_size = output_fmt_nbr(num, fmt_data, n < 0 ? 1 : 0);
+	write_size = output_fmt_nbr(num, fmt_data, (n < 0 && !is_unsigned_type(fmt_data->type)) ? 1 : 0);
 	free(num);
 	return (write_size);
 }
