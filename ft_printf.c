@@ -84,7 +84,7 @@ int write_fmt_data(t_fmt *fmt_data, va_list ap)
 	}
 	else if (fmt_data->type == TYPE_POINTER)
 	{
-		long long n = va_arg(ap, long long);
+		long long n = va_arg(ap, long);
 		return (write_integer(fmt_data, n));
 	}
 	return (0);
