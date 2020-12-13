@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 01:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 07:12:37 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 07:24:00 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void parse_flag(const char **format, t_fmt *fmt_data)
 
 void parse_width(const char **format, t_fmt *fmt_data, va_list ap)
 {
-	// 引数で渡された値をwidthとして使用する
 	if (**format == '*')
 	{
 		int width = va_arg(ap, int);
@@ -59,18 +58,15 @@ void parse_precision(const char **format, t_fmt *fmt_data, va_list ap)
 		if (**format == '*')
 		{
 			long long precision = va_arg(ap, int);
-			// printf("precision: %lld\n", precision);
 			if (precision >= 0)
 				fmt_data->precision = precision;
 			(*format)++;
 		}
-		// 負の数が指定された場合は精度の指定は無し
 		else if (**format == '-')
 		{
 			(*format)++;
 			(*format) += num_len(*format);
 		}
-		// 数字が入力されていた場合
 		else
 		{
 			fmt_data->precision = ft_atoi(*format);

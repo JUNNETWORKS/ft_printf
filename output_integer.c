@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 06:12:32 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 07:23:29 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ int fmt_itoa(long long n, t_fmt *fmt_data, char **num, long long len)
 int output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 {
 	int output_precision;
-	int output_witdh;
+	int output_width;
 	int write_size;
 	int is_pointer;
-	output_precision = 0; // 精度のために出力する0の数
-	output_witdh = 0; // widthを満たすために埋めるスペースの数
+	output_precision = 0;
+	output_width = 0;
 	write_size = 0;
 	is_pointer = fmt_data->type == TYPE_POINTER ? 2 : 0;
 
@@ -80,11 +80,11 @@ int output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 	if (fmt_data->precision > fmt_data->digit)
 		output_precision = fmt_data->precision - fmt_data->digit;
 	if (fmt_data->width > (output_precision + is_minus + is_pointer + fmt_data->digit))
-		output_witdh = fmt_data->width - (output_precision + is_minus + is_pointer + fmt_data->digit);
+		output_width = fmt_data->width - (output_precision + is_minus + is_pointer + fmt_data->digit);
 	if (fmt_data->flag & FLAG_ZEROS && fmt_data->precision <= 1)
 	{
-		output_precision += output_witdh;
-		output_witdh = 0;
+		output_precision += output_width;
+		output_width = 0;
 	}
 	if (fmt_data->flag & FLAG_LEFT)
 	{
@@ -94,11 +94,11 @@ int output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 		if (is_pointer)
 			write_size += write(1, "0x", 2);
 		write_size += write(1, num, fmt_data->digit);
-		write_size += put_c_n_times(' ', output_witdh);
+		write_size += put_c_n_times(' ', output_width);
 	}
 	else
 	{
-		write_size += put_c_n_times(' ', output_witdh);
+		write_size += put_c_n_times(' ', output_width);
 		if (is_minus)
 		write_size += write(1, "-", 1);
 		if (is_pointer)
@@ -107,6 +107,6 @@ int output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 		write_size += write(1, num, fmt_data->digit);
 	}
 	// printf("precision: %d, width: %d, digit: %llu", output_precision,
-	// output_witdh, fmt_data->digit); fflush(stdout);
+	// output_width, fmt_data->digit); fflush(stdout);
 	return (write_size); // write_size
 }
