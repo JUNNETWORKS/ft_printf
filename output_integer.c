@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/13 02:48:36 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/13 23:59:11 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int fmt_itoa(long long n, t_fmt *fmt_data, char **num, long long len)
 		len = fmt_itoa(un / base, fmt_data, num, len);
 	else
 	{
+		printf("len: %lld\n", len);
 		if (!(*num = malloc(len + 1)))
 			return -1;
 		(*num)[len] = '\0';
