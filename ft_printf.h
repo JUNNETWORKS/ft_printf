@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 09:20:57 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 09:23:23 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-enum	e_flag
+enum			e_flag
 {
 	FLAG_NONE = 0b00000,
 	FLAG_LEFT = 0b00001,
@@ -29,7 +29,7 @@ enum	e_flag
 	FLAG_ZEROS = 0b10000
 };
 
-enum	e_type
+enum			e_type
 {
 	TYPE_NONE = 0,
 	TYPE_PERCENT = 1,
