@@ -6,16 +6,16 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 02:27:40 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 09:29:09 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 09:29:55 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_fmt	*new_t_fmt()
+t_fmt	*new_t_fmt(void)
 {
 	t_fmt *fmt_data;
-	
+
 	fmt_data = malloc(sizeof(t_fmt));
 	fmt_data->flag = FLAG_NONE;
 	fmt_data->precision = -1;
