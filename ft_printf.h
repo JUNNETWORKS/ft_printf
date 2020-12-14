@@ -6,13 +6,12 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 09:09:55 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 09:19:21 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
-#define FT_PRINTF_H
-
+# define FT_PRINTF_H
 # include "libft/libft.h"
 # include <stdarg.h>
 # include <stdbool.h>
