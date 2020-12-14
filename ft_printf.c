@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 07:20:53 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 09:09:05 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 09:27:56 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int		write_fmt_data(t_fmt *fmt_data, va_list ap)
 		return (write_char(fmt_data, ap));
 	else if (fmt_data->type == TYPE_STRING)
 		return (write_string(fmt_data, ap));
-	else if (fmt_data->type == TYPE_UINT || fmt_data->type == TYPE_HEX_LOW || fmt_data->type == TYPE_HEX_UP)
+	else if (fmt_data->type == TYPE_UINT || fmt_data->type == TYPE_HEX_LOW ||
+			fmt_data->type == TYPE_HEX_UP)
 	{
 		n = (unsigned int)va_arg(ap, int);
 		return (write_integer(fmt_data, n));
