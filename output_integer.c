@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 09:41:15 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/15 08:31:47 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,28 @@ unsigned long long	get_base(enum e_type type)
 		return (10);
 }
 
+/*
+int					wirte_prefix(t_fmt *fmt_data, long long n)
+{
+	int		write_size;
+	int		tmp;
+	int		zeros; // 精度のために出力する0の数
+	int		prefix_count;   // 出力する数字以外の文字数
+
+	zeros = (fmt_data->precision > fmt_data->digit) ? fmt_data->precision > fmt_data->digit : 0;
+	prefix_count = 0;
+	if (!is_unsigned_type(fmt_data->type) && n < 0)
+		prefix_count += 1;
+	if (fmt_data->type == TYPE_POINTER)
+	    prefix_count += 2;
+	write_size = 0;
+	if (!is_unsigned_type(fmt_data->type) && n < 0)
+		write_size += write(1, "-", 1);
+	if ((tmp = fmt_data->precision - fmt_data->digit) > 0)
+		write_size += put_c_n_times('0', tmp);
+}
+*/
+
 int					write_integer(t_fmt *fmt_data, long long n)
 {
 	char	*num;
@@ -29,8 +51,10 @@ int					write_integer(t_fmt *fmt_data, long long n)
 	fmt_itoa(n, fmt_data, &num, 0);
 	if (num == NULL)
 		return (0);
+	// prefixは別の関数で行う
 	write_size = output_fmt_nbr(num, fmt_data,
 						(n < 0 && !is_unsigned_type(fmt_data->type)) ? 1 : 0);
+	// write(1, num, ft_strlen(num));
 	free(num);
 	return (write_size);
 }
@@ -89,9 +113,9 @@ int					output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 	{
 		if (is_minus)
 			write_size += write(1, "-", 1);
-		write_size += put_c_n_times('0', output_precision);
 		if (is_pointer)
 			write_size += write(1, "0x", 2);
+		write_size += put_c_n_times('0', output_precision);
 		write_size += write(1, num, fmt_data->digit);
 		write_size += put_c_n_times(' ', output_width);
 	}
