@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 09:00:55 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 09:36:01 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int					fmt_itoa(long long n, t_fmt *fmt_data,
 		(*num)[len++] = "0123456789abcdef"[un % base];
 	return (len);
 }
-
 
 int					output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 {
