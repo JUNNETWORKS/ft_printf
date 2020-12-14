@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 08:45:48 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 09:06:10 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_fmt
 
 t_fmt	*new_t_fmt();
 bool	is_unsigned_type(enum e_type type);
+bool	is_integer_type(enum e_type type);
 void	parse_flag(const char **format, t_fmt *fmt_data);
 void	parse_width(const char **format, t_fmt *fmt_data, va_list ap);
 void	parse_precision(const char **format, t_fmt *fmt_data, va_list ap);

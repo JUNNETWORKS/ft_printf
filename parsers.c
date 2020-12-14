@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 01:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 09:03:24 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 09:07:16 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,11 @@ void	parse_type(const char **format, t_fmt *fmt_data)
 	else if (**format == '%')
 		fmt_data->type = TYPE_PERCENT;
 	else
-		return;
-	if (fmt_data->type == TYPE_INT || fmt_data->type == TYPE_UINT || fmt_data->type == TYPE_HEX_LOW || fmt_data->type == TYPE_HEX_UP)
+		return ;
+	if (is_integer_type(fmt_data->type))
 		if (fmt_data->precision != -1)
 			fmt_data->flag &= ~FLAG_ZEROS;
-	if (fmt_data->type == TYPE_INT || fmt_data->type == TYPE_UINT || fmt_data->type == TYPE_HEX_LOW || fmt_data->type == TYPE_HEX_UP || fmt_data->type == TYPE_POINTER)
+	if (is_integer_type(fmt_data->type) || fmt_data->type == TYPE_POINTER)
 		if (fmt_data->precision == -1)
 			fmt_data->precision = 1;
 	(*format)++;
