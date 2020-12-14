@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 01:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 09:01:54 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 09:03:24 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,27 @@ void	parse_width(const char **format, t_fmt *fmt_data, va_list ap)
 				fmt_data->flag = FLAG_LEFT;
 			width = -width;
 		}
-		fmt_data->width = (unsigned int) width;
+		fmt_data->width = (unsigned int)width;
 		(*format)++;
 	}
 	else if (ft_isdigit(**format))
 	{
 		width = ft_atoi(*format);
-		fmt_data->width = (unsigned int) width;
+		fmt_data->width = (unsigned int)width;
 		(*format) += num_len(*format);
 	}
 }
 
 void	parse_precision(const char **format, t_fmt *fmt_data, va_list ap)
 {
+	long long precision;
+
 	if (**format == '.')
 	{
 		(*format)++;
 		if (**format == '*')
 		{
-			long long precision = va_arg(ap, int);
+			precision = va_arg(ap, int);
 			if (precision >= 0)
 				fmt_data->precision = precision;
 			(*format)++;
