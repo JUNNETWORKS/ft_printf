@@ -6,14 +6,11 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 07:20:53 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 08:44:31 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 09:09:05 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdarg.h>
-#include <stdio.h>
-#include <unistd.h>
 
 int		ft_printf(const char *format, ...)
 {
@@ -58,6 +55,7 @@ int		parse_and_write(va_list ap, const char **format)
 int		write_fmt_data(t_fmt *fmt_data, va_list ap)
 {
 	long long	n;
+
 	if (fmt_data->type == TYPE_PERCENT)
 		return (write_percent(fmt_data));
 	if (fmt_data->type == TYPE_CHAR)
