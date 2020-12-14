@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 09:36:01 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 09:41:15 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,10 @@ int					output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 		fmt_data->digit = 0;
 	if (fmt_data->precision > fmt_data->digit)
 		output_precision = fmt_data->precision - fmt_data->digit;
-	if (fmt_data->width > (output_precision + is_minus + is_pointer + fmt_data->digit))
-		output_width = fmt_data->width - (output_precision + is_minus + is_pointer + fmt_data->digit);
+	if (fmt_data->width >
+		(output_precision + is_minus + is_pointer + fmt_data->digit))
+		output_width = fmt_data->width -
+			(output_precision + is_minus + is_pointer + fmt_data->digit);
 	if (fmt_data->flag & FLAG_ZEROS && fmt_data->precision <= 1)
 	{
 		output_precision += output_width;
@@ -86,7 +88,7 @@ int					output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 	if (fmt_data->flag & FLAG_LEFT)
 	{
 		if (is_minus)
-		  write_size += write(1, "-", 1);
+			write_size += write(1, "-", 1);
 		write_size += put_c_n_times('0', output_precision);
 		if (is_pointer)
 			write_size += write(1, "0x", 2);
@@ -97,7 +99,7 @@ int					output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 	{
 		write_size += put_c_n_times(' ', output_width);
 		if (is_minus)
-		write_size += write(1, "-", 1);
+			write_size += write(1, "-", 1);
 		if (is_pointer)
 			write_size += write(1, "0x", 2);
 		write_size += put_c_n_times('0', output_precision);
