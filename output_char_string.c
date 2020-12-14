@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:38:46 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 08:46:37 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/14 09:33:23 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		write_char(t_fmt *fmt_data, va_list ap)
 	int				write_size;
 
 	write_size = 0;
-	c = (unsigned char) va_arg(ap, int);
+	c = (unsigned char)va_arg(ap, int);
 	if (fmt_data->width > 0 && !(fmt_data->flag & FLAG_LEFT))
 		write_size += put_c_n_times(' ', fmt_data->width - 1);
 	write_size += write(1, &c, 1);
@@ -34,15 +34,14 @@ int		write_string(t_fmt *fmt_data, va_list ap)
 	long long	output_str_len;
 	long long	output_width;
 
-	str            = (const char *) va_arg(ap, const char *);
-	str            = str ? str : "(null)";
+	str = (const char *)va_arg(ap, const char *);
+	str = str ? str : "(null)";
 	output_str_len = ft_strlen(str);
-	output_width   = 0;
+	output_width = 0;
 	if (fmt_data->precision >= 0 && output_str_len > fmt_data->precision)
 		output_str_len = fmt_data->precision;
 	if (fmt_data->width > output_str_len)
 		output_width = fmt_data->width - output_str_len;
-
 	if (fmt_data->flag & FLAG_LEFT)
 	{
 		write(1, str, output_str_len);
