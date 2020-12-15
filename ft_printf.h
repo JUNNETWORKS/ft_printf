@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 09:25:07 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 08:31:52 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct	s_fmt
 	long long	width;
 	long long	precision;
 	enum e_type type;
+	long long	is_minus;
 	long long	digit;
 }				t_fmt;
 
@@ -62,7 +63,7 @@ void			parse_type(const char **format, t_fmt *fmt_data);
 int				put_c_n_times(char c, int n);
 int				ft_printf(const char *format, ...);
 int				output_fmt(t_fmt *fmt_struct, va_list ap);
-int				output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus);
+int				output_fmt_nbr(char *num, t_fmt *fmt_data, int prefix_size);
 int				fmt_itoa(long long n, t_fmt *fmt_data,
 					char **num, long long len);
 int				write_char(t_fmt *fmt_data, va_list ap);
