@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 08:31:52 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 08:36:11 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int				put_c_n_times(char c, int n);
 int				ft_printf(const char *format, ...);
 int				output_fmt(t_fmt *fmt_struct, va_list ap);
 int				output_fmt_nbr(char *num, t_fmt *fmt_data, int prefix_size);
+int				write_fmt_nbr(char *num, t_fmt *fmt_data, int spaces, int zeros);
 int				fmt_itoa(long long n, t_fmt *fmt_data,
 					char **num, long long len);
 int				write_char(t_fmt *fmt_data, va_list ap);

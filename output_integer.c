@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 08:30:14 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 08:36:26 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,9 @@ int					output_fmt_nbr(char *num, t_fmt *fmt_data, int prefix_size)
 {
 	int		zeros;
 	int		spaces;
-	int		write_size;
 
 	zeros = 0;
 	spaces = 0;
-	write_size = 0;
 	if (fmt_data->precision == 0 && *num == '0')
 		fmt_data->digit = 0;
 	if (fmt_data->precision > fmt_data->digit)
@@ -99,7 +97,14 @@ int					output_fmt_nbr(char *num, t_fmt *fmt_data, int prefix_size)
 		zeros += spaces;
 		spaces = 0;
 	}
-	// printf("prefix_size: %d\nzeros: %d\nspaces: %d\n", prefix_size, zeros, spaces);
+	return (write_fmt_nbr(num, fmt_data, spaces, zeros));
+}
+
+int					write_fmt_nbr(char *num, t_fmt *fmt_data, int spaces, int zeros)
+{
+	int		write_size;
+
+	write_size = 0;
 	if (!(fmt_data->flag & FLAG_LEFT))
 		write_size += put_c_n_times(' ', spaces);
 	write_size += write(1, "-", fmt_data->is_minus);
@@ -111,9 +116,3 @@ int					output_fmt_nbr(char *num, t_fmt *fmt_data, int prefix_size)
 	return (write_size);
 }
 
-/*
-int					write_fmt_nbr(char *num, t_fmt *fmt_data, int spaces, int zeros)
-{
-
-}
-*/
