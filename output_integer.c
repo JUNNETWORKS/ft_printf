@@ -6,14 +6,12 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 07:33:15 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 08:04:03 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
-
-int					put_prefix(long long n, t_fmt *fmt_data, long long ret);
 
 unsigned long long	get_base(enum e_type type)
 {
