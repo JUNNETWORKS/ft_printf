@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:38:46 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 09:33:23 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 08:01:40 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ int		write_string(t_fmt *fmt_data, va_list ap)
 	}
 	else
 	{
-		if (fmt_data->flag & FLAG_ZEROS)
-			put_c_n_times('0', output_width);
-		else
-			put_c_n_times(' ', output_width);
+		put_c_n_times(fmt_data->flag & FLAG_ZEROS ? '0' : ' ', output_width);
 		write(1, str, output_str_len);
 	}
 	return (output_width + output_str_len);
