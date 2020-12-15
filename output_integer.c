@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 07:04:11 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 07:33:15 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,16 @@ unsigned long long	get_base(enum e_type type)
 int					write_integer(t_fmt *fmt_data, long long n)
 {
 	char		*num;
-	// int			write_size;
-	long long	ret;
-	long long	zero;  // 出力するゼロの数
+	int			write_size;
 
-	num = NULL;
-	if ((ret = (!n && !(fmt_data->precision)) ? 0 : fmt_itoa(n, fmt_data, &num, 0)) < 0)
-		return (-1);
-	zero = fmt_data->precision > ret ? fmt_data->precision - ret : 0;
-	if (!is_unsigned_type(fmt_data->type) && n < 0)
-		ret++;
-	if (fmt_data->type == TYPE_POINTER)
-		ret += 2;
-	ret = put_prefix(n, fmt_data, ret + zero);  // 第三引数は prefix + 出力数字 の文字数
-	put_c_n_times('0', zero);
-	write(1, num, fmt_data->digit);
-	if (fmt_data->flag & FLAG_LEFT)
-		put_c_n_times(' ', fmt_data->width - ret);
-	ret = fmt_data->width > ret ? fmt_data->width : ret;
-	// write_size = output_fmt_nbr(num, fmt_data,
-						// (!is_unsigned_type(fmt_data->type) && n < 0));
-	write(1, num, fmt_data->digit);
+	fmt_itoa(n, fmt_data, &num, 0);
+	if (num == NULL)
+		return (0);
+	write_size = output_fmt_nbr(num, fmt_data,
+						(n < 0 && !is_unsigned_type(fmt_data->type)) ? 1 : 0);
+	// write(1, num, ft_strlen(num));
 	free(num);
-	// return (write_size);
-	return (ret);
+	return (write_size);
 }
 
 int					put_prefix(long long n, t_fmt *fmt_data, long long ret)
