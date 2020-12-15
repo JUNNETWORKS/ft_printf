@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 08:36:26 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 08:40:33 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int					write_integer(t_fmt *fmt_data, long long n)
 	int			write_size;
 	int			prefix_size;
 
-
 	prefix_size = 0;
 	fmt_itoa(n, fmt_data, &num, 0);
 	if (num == NULL)
@@ -37,20 +36,8 @@ int					write_integer(t_fmt *fmt_data, long long n)
 	if (fmt_data->type == TYPE_POINTER)
 		prefix_size += 2;
 	write_size = output_fmt_nbr(num, fmt_data, prefix_size);
-	// write(1, num, ft_strlen(num));
 	free(num);
 	return (write_size);
-}
-
-int					put_prefix(long long n, t_fmt *fmt_data, long long ret)
-{
-	if (ret < fmt_data->width && !(fmt_data->flag & FLAG_LEFT))
-		put_c_n_times(fmt_data->flag & FLAG_ZEROS ? '0' : ' ', fmt_data->width - ret);
-	if (!is_unsigned_type(fmt_data->type) && n < 0)
-		write(1, "-", 1);
-	if (fmt_data->type == TYPE_POINTER)
-		write(1, "0x", 2);
-	return (ret);
 }
 
 int					fmt_itoa(long long n, t_fmt *fmt_data,
