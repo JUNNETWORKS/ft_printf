@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/15 09:07:55 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/15 09:13:00 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int					write_integer(t_fmt *fmt_data, long long n)
 		return (0);
 	// prefixは別の関数で行う
 	write_size = output_fmt_nbr(num, fmt_data,
-						(n < 0 && !is_unsigned_type(fmt_data->type)) ? 1 : 0);
+						(!is_unsigned_type(fmt_data->type) && n < 0));
 	// write(1, num, ft_strlen(num));
 	free(num);
 	return (write_size);
