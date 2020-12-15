@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 08:04:03 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 08:30:14 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,18 @@ int					write_integer(t_fmt *fmt_data, long long n)
 {
 	char		*num;
 	int			write_size;
+	int			prefix_size;
 
+
+	prefix_size = 0;
 	fmt_itoa(n, fmt_data, &num, 0);
 	if (num == NULL)
 		return (0);
-	write_size = output_fmt_nbr(num, fmt_data,
-						(n < 0 && !is_unsigned_type(fmt_data->type)) ? 1 : 0);
+	if (n < 0 && !is_unsigned_type(fmt_data->type))
+		prefix_size += ++(fmt_data->is_minus);
+	if (fmt_data->type == TYPE_POINTER)
+		prefix_size += 2;
+	write_size = output_fmt_nbr(num, fmt_data, prefix_size);
 	// write(1, num, ft_strlen(num));
 	free(num);
 	return (write_size);
@@ -73,38 +79,41 @@ int					fmt_itoa(long long n, t_fmt *fmt_data,
 	return (len);
 }
 
-int					output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
+int					output_fmt_nbr(char *num, t_fmt *fmt_data, int prefix_size)
 {
-	int		output_zeros;
-	int		output_spaces;
+	int		zeros;
+	int		spaces;
 	int		write_size;
-	int		is_pointer;
 
-	output_zeros = 0;
-	output_spaces = 0;
+	zeros = 0;
+	spaces = 0;
 	write_size = 0;
-	is_pointer = fmt_data->type == TYPE_POINTER ? 2 : 0;
 	if (fmt_data->precision == 0 && *num == '0')
 		fmt_data->digit = 0;
 	if (fmt_data->precision > fmt_data->digit)
-		output_zeros = fmt_data->precision - fmt_data->digit;
-	if (fmt_data->width >
-		(output_zeros + is_minus + is_pointer + fmt_data->digit))
-		output_spaces = fmt_data->width -
-			(output_zeros + is_minus + is_pointer + fmt_data->digit);
+		zeros = fmt_data->precision - fmt_data->digit;
+	if (fmt_data->width > (zeros + prefix_size + fmt_data->digit))
+		spaces = fmt_data->width - (zeros + prefix_size + fmt_data->digit);
 	if (fmt_data->flag & FLAG_ZEROS && fmt_data->precision <= 1)
 	{
-		output_zeros += output_spaces;
-		output_spaces = 0;
+		zeros += spaces;
+		spaces = 0;
 	}
+	// printf("prefix_size: %d\nzeros: %d\nspaces: %d\n", prefix_size, zeros, spaces);
 	if (!(fmt_data->flag & FLAG_LEFT))
-		write_size += put_c_n_times(' ', output_spaces);
-	write_size += write(1, "-", is_minus);
-	write_size += write(1, "0x", is_pointer);
-	write_size += put_c_n_times('0', output_zeros);
+		write_size += put_c_n_times(' ', spaces);
+	write_size += write(1, "-", fmt_data->is_minus);
+	write_size += write(1, "0x", fmt_data->type == TYPE_POINTER ? 2 : 0);
+	write_size += put_c_n_times('0', zeros);
 	write_size += write(1, num, fmt_data->digit);
 	if (fmt_data->flag & FLAG_LEFT)
-		write_size += put_c_n_times(' ', output_spaces);
+		write_size += put_c_n_times(' ', spaces);
 	return (write_size);
 }
 
+/*
+int					write_fmt_nbr(char *num, t_fmt *fmt_data, int spaces, int zeros)
+{
+
+}
+*/
