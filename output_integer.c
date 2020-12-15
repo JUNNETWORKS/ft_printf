@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 08:40:33 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 08:51:50 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ int					output_fmt_nbr(char *num, t_fmt *fmt_data, int prefix_size)
 	return (write_fmt_nbr(num, fmt_data, spaces, zeros));
 }
 
-int					write_fmt_nbr(char *num, t_fmt *fmt_data, int spaces, int zeros)
+int					write_fmt_nbr(char *num, t_fmt *fmt_data,
+									int spaces, int zeros)
 {
 	int		write_size;
 
@@ -102,4 +103,3 @@ int					write_fmt_nbr(char *num, t_fmt *fmt_data, int spaces, int zeros)
 		write_size += put_c_n_times(' ', spaces);
 	return (write_size);
 }
-
