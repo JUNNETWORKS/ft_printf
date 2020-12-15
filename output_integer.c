@@ -6,12 +6,14 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/15 09:13:00 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 07:04:11 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
+
+int					put_prefix(long long n, t_fmt *fmt_data, long long ret);
 
 unsigned long long	get_base(enum e_type type)
 {
@@ -20,41 +22,45 @@ unsigned long long	get_base(enum e_type type)
 	else
 		return (10);
 }
-/*
-int					wirte_prefix(t_fmt *fmt_data, long long n)
-{
-	int		write_size;
-	int		tmp;
-	int		zeros; // 精度のために出力する0の数
-	int		prefix_count;   // 出力する数字以外の文字数
 
-	zeros = (fmt_data->precision > fmt_data->digit) ? fmt_data->precision - fmt_data->digit : 0;
-	// prefix_count = 0;
-	// if (!is_unsigned_type(fmt_data->type) && n < 0)
-		// prefix_count += 1;
-	// if (fmt_data->type == TYPE_POINTER)
-	    // prefix_count += 2;
-	write_size = 0;
-	if (!is_unsigned_type(fmt_data->type) && n < 0)
-		write_size += write(1, "-", 1);
-	if (fmt_data->precision > fmt_data->digit)
-		write_size += put_c_n_times('0', fmt_data->precision - fmt_data->digit);
-}
-*/
 int					write_integer(t_fmt *fmt_data, long long n)
 {
-	char	*num;
-	int		write_size;
+	char		*num;
+	// int			write_size;
+	long long	ret;
+	long long	zero;  // 出力するゼロの数
 
-	fmt_itoa(n, fmt_data, &num, 0);
-	if (num == NULL)
-		return (0);
-	// prefixは別の関数で行う
-	write_size = output_fmt_nbr(num, fmt_data,
-						(!is_unsigned_type(fmt_data->type) && n < 0));
-	// write(1, num, ft_strlen(num));
+	num = NULL;
+	if ((ret = (!n && !(fmt_data->precision)) ? 0 : fmt_itoa(n, fmt_data, &num, 0)) < 0)
+		return (-1);
+	zero = fmt_data->precision > ret ? fmt_data->precision - ret : 0;
+	if (!is_unsigned_type(fmt_data->type) && n < 0)
+		ret++;
+	if (fmt_data->type == TYPE_POINTER)
+		ret += 2;
+	ret = put_prefix(n, fmt_data, ret + zero);  // 第三引数は prefix + 出力数字 の文字数
+	put_c_n_times('0', zero);
+	write(1, num, fmt_data->digit);
+	if (fmt_data->flag & FLAG_LEFT)
+		put_c_n_times(' ', fmt_data->width - ret);
+	ret = fmt_data->width > ret ? fmt_data->width : ret;
+	// write_size = output_fmt_nbr(num, fmt_data,
+						// (!is_unsigned_type(fmt_data->type) && n < 0));
+	write(1, num, fmt_data->digit);
 	free(num);
-	return (write_size);
+	// return (write_size);
+	return (ret);
+}
+
+int					put_prefix(long long n, t_fmt *fmt_data, long long ret)
+{
+	if (ret < fmt_data->width && !(fmt_data->flag & FLAG_LEFT))
+		put_c_n_times(fmt_data->flag & FLAG_ZEROS ? '0' : ' ', fmt_data->width - ret);
+	if (!is_unsigned_type(fmt_data->type) && n < 0)
+		write(1, "-", 1);
+	if (fmt_data->type == TYPE_POINTER)
+		write(1, "0x", 2);
+	return (ret);
 }
 
 int					fmt_itoa(long long n, t_fmt *fmt_data,
@@ -85,35 +91,36 @@ int					fmt_itoa(long long n, t_fmt *fmt_data,
 
 int					output_fmt_nbr(char *num, t_fmt *fmt_data, int is_minus)
 {
-	int		output_precision;
-	int		output_width;
+	int		output_zeros;
+	int		output_spaces;
 	int		write_size;
 	int		is_pointer;
 
-	output_precision = 0;
-	output_width = 0;
+	output_zeros = 0;
+	output_spaces = 0;
 	write_size = 0;
 	is_pointer = fmt_data->type == TYPE_POINTER ? 2 : 0;
 	if (fmt_data->precision == 0 && *num == '0')
 		fmt_data->digit = 0;
 	if (fmt_data->precision > fmt_data->digit)
-		output_precision = fmt_data->precision - fmt_data->digit;
+		output_zeros = fmt_data->precision - fmt_data->digit;
 	if (fmt_data->width >
-		(output_precision + is_minus + is_pointer + fmt_data->digit))
-		output_width = fmt_data->width -
-			(output_precision + is_minus + is_pointer + fmt_data->digit);
+		(output_zeros + is_minus + is_pointer + fmt_data->digit))
+		output_spaces = fmt_data->width -
+			(output_zeros + is_minus + is_pointer + fmt_data->digit);
 	if (fmt_data->flag & FLAG_ZEROS && fmt_data->precision <= 1)
 	{
-		output_precision += output_width;
-		output_width = 0;
+		output_zeros += output_spaces;
+		output_spaces = 0;
 	}
 	if (!(fmt_data->flag & FLAG_LEFT))
-		write_size += put_c_n_times(' ', output_width);
+		write_size += put_c_n_times(' ', output_spaces);
 	write_size += write(1, "-", is_minus);
 	write_size += write(1, "0x", is_pointer);
-	write_size += put_c_n_times('0', output_precision);
+	write_size += put_c_n_times('0', output_zeros);
 	write_size += write(1, num, fmt_data->digit);
 	if (fmt_data->flag & FLAG_LEFT)
-		write_size += put_c_n_times(' ', output_width);
+		write_size += put_c_n_times(' ', output_spaces);
 	return (write_size);
 }
+
