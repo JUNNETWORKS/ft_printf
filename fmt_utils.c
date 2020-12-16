@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 02:27:40 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 10:18:34 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 10:33:33 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ bool		is_integer_type(enum e_type type)
 {
 	return (type == TYPE_INT || type == TYPE_UINT ||
 			type == TYPE_HEX_LOW || type == TYPE_HEX_UP);
+}
+
+bool		will_output_base(t_fmt *fmt_data)
+{
+	return (fmt_data->type == TYPE_POINTER || (get_base_from_type(fmt_data->type) == 16 && fmt_data->flag & FLAG_SIGN));
 }
 
 uint64_t	get_base_from_type(enum e_type type)
