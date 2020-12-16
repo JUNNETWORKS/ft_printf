@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 01:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/17 05:49:13 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/17 06:38:14 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	parse_flag(const char **format, t_fmt *fmt_data)
 		fmt_data->flag &= ~FLAG_ZEROS;
 }
 
-void	parse_width(const char **format, t_fmt *fmt_data, va_list ap)
+void	parse_width(const char **format, t_fmt *fmt_data, va_list *ap)
 {
 	int width;
 
 	if (**format == '*')
 	{
-		width = va_arg(ap, int);
+		width = va_arg(*ap, int);
 		if (width < 0)
 		{
 			fmt_data->flag |= FLAG_LEFT;
@@ -60,7 +60,7 @@ void	parse_width(const char **format, t_fmt *fmt_data, va_list ap)
 	}
 }
 
-void	parse_precision(const char **format, t_fmt *fmt_data, va_list ap)
+void	parse_precision(const char **format, t_fmt *fmt_data, va_list *ap)
 {
 	long long precision;
 
@@ -69,7 +69,7 @@ void	parse_precision(const char **format, t_fmt *fmt_data, va_list ap)
 		(*format)++;
 		if (**format == '*')
 		{
-			precision = va_arg(ap, int);
+			precision = va_arg(*ap, int);
 			if (precision >= 0)
 				fmt_data->precision = precision;
 			(*format)++;

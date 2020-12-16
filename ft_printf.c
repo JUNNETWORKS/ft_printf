@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 07:20:53 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 09:00:55 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/17 06:43:00 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			write_size += parse_and_write(ap, &format);
+			write_size += parse_and_write(&format, &ap);
 		}
 		else
 		{
@@ -35,7 +35,7 @@ int		ft_printf(const char *format, ...)
 	return (write_size);
 }
 
-int		parse_and_write(va_list ap, const char **format)
+int		parse_and_write(const char **format, va_list *ap)
 {
 	int		write_size;
 	t_fmt	fmt_data;
@@ -51,7 +51,7 @@ int		parse_and_write(va_list ap, const char **format)
 	return (write_size);
 }
 
-int		write_fmt_data(t_fmt *fmt_data, va_list ap)
+int		write_fmt_data(t_fmt *fmt_data, va_list *ap)
 {
 	long long	n;
 
@@ -64,17 +64,17 @@ int		write_fmt_data(t_fmt *fmt_data, va_list ap)
 	else if (fmt_data->type == TYPE_UINT || fmt_data->type == TYPE_HEX_LOW ||
 			fmt_data->type == TYPE_HEX_UP)
 	{
-		n = (unsigned int)va_arg(ap, int);
+		n = (unsigned int)va_arg(*ap, int);
 		return (write_integer(fmt_data, n));
 	}
 	else if (fmt_data->type == TYPE_INT)
 	{
-		n = va_arg(ap, int);
+		n = va_arg(*ap, int);
 		return (write_integer(fmt_data, n));
 	}
 	else if (fmt_data->type == TYPE_POINTER)
 	{
-		n = va_arg(ap, long);
+		n = va_arg(*ap, long);
 		return (write_integer(fmt_data, n));
 	}
 	return (0);

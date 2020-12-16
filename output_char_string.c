@@ -6,20 +6,20 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:38:46 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 10:08:52 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/17 06:40:03 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-int		write_char(t_fmt *fmt_data, va_list ap)
+int		write_char(t_fmt *fmt_data, va_list *ap)
 {
 	unsigned char	c;
 	int				write_size;
 
 	write_size = 0;
-	c = (unsigned char)va_arg(ap, int);
+	c = (unsigned char)va_arg(*ap, int);
 	if (fmt_data->width > 0 && !(fmt_data->flag & FLAG_LEFT))
 		write_size += write_c_n_times(' ', fmt_data->width - 1);
 	write_size += write(1, &c, 1);
@@ -28,13 +28,13 @@ int		write_char(t_fmt *fmt_data, va_list ap)
 	return (write_size);
 }
 
-int		write_string(t_fmt *fmt_data, va_list ap)
+int		write_string(t_fmt *fmt_data, va_list *ap)
 {
 	const char	*str;
 	long long	output_str_len;
 	long long	output_width;
 
-	str = (const char *)va_arg(ap, const char *);
+	str = (const char *)va_arg(*ap, const char *);
 	str = str ? str : "(null)";
 	output_str_len = ft_strlen(str);
 	output_width = 0;
