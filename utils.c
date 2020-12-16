@@ -6,13 +6,13 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 02:39:12 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/14 09:04:48 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 10:06:32 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		put_c_n_times(char c, int n)
+int		write_c_n_times(char c, int n)
 {
 	int i;
 

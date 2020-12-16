@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:38:46 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 08:01:40 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 10:08:52 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int		write_char(t_fmt *fmt_data, va_list ap)
 	write_size = 0;
 	c = (unsigned char)va_arg(ap, int);
 	if (fmt_data->width > 0 && !(fmt_data->flag & FLAG_LEFT))
-		write_size += put_c_n_times(' ', fmt_data->width - 1);
+		write_size += write_c_n_times(' ', fmt_data->width - 1);
 	write_size += write(1, &c, 1);
 	if (fmt_data->width > 0 && fmt_data->flag & FLAG_LEFT)
-		write_size += put_c_n_times(' ', fmt_data->width - 1);
+		write_size += write_c_n_times(' ', fmt_data->width - 1);
 	return (write_size);
 }
 
@@ -45,11 +45,11 @@ int		write_string(t_fmt *fmt_data, va_list ap)
 	if (fmt_data->flag & FLAG_LEFT)
 	{
 		write(1, str, output_str_len);
-		put_c_n_times(' ', output_width);
+		write_c_n_times(' ', output_width);
 	}
 	else
 	{
-		put_c_n_times(fmt_data->flag & FLAG_ZEROS ? '0' : ' ', output_width);
+		write_c_n_times(fmt_data->flag & FLAG_ZEROS ? '0' : ' ', output_width);
 		write(1, str, output_str_len);
 	}
 	return (output_width + output_str_len);

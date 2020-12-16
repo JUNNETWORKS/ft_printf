@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 08:59:14 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 10:18:22 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <inttypes.h>
 
 enum			e_flag
 {
@@ -55,12 +56,13 @@ typedef struct	s_fmt
 void			initialize_t_fmt(t_fmt *fmt_data);
 bool			is_unsigned_type(enum e_type type);
 bool			is_integer_type(enum e_type type);
+uint64_t		get_base_from_type(enum e_type type);
 void			parse_flag(const char **format, t_fmt *fmt_data);
 void			parse_width(const char **format, t_fmt *fmt_data, va_list ap);
 void			parse_precision(const char **format,
 					t_fmt *fmt_data, va_list ap);
 void			parse_type(const char **format, t_fmt *fmt_data);
-int				put_c_n_times(char c, int n);
+int				write_c_n_times(char c, int n);
 int				ft_printf(const char *format, ...);
 int				output_fmt(t_fmt *fmt_struct, va_list ap);
 int				output_fmt_nbr(char *num, t_fmt *fmt_data, int prefix_size);

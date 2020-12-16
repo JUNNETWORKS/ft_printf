@@ -6,22 +6,14 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 09:06:03 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 10:17:38 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-unsigned long long	get_base(enum e_type type)
-{
-	if (type == TYPE_HEX_LOW || type == TYPE_HEX_UP || type == TYPE_POINTER)
-		return (16);
-	else
-		return (10);
-}
-
-int					write_integer(t_fmt *fmt_data, long long n)
+int		write_integer(t_fmt *fmt_data, long long n)
 {
 	char		*num;
 	int			write_size;
@@ -41,14 +33,13 @@ int					write_integer(t_fmt *fmt_data, long long n)
 	return (write_size);
 }
 
-int					fmt_itoa(long long n, t_fmt *fmt_data,
-								char **num, long long len)
+int		fmt_itoa(long long n, t_fmt *fmt_data, char **num, long long len)
 {
 	unsigned long long	un;
 	unsigned long long	base;
 
 	len++;
-	base = get_base(fmt_data->type);
+	base = get_base_from_type(fmt_data->type);
 	un = (is_unsigned_type(fmt_data->type) || n >= 0) ? n : -n;
 	if (un >= base)
 		if ((len = fmt_itoa(un / base, fmt_data, num, len)) < 0)
@@ -68,7 +59,7 @@ int					fmt_itoa(long long n, t_fmt *fmt_data,
 	return (len);
 }
 
-int					output_fmt_nbr(char *num, t_fmt *fmt_data, int prefix_size)
+int		output_fmt_nbr(char *num, t_fmt *fmt_data, int prefix_size)
 {
 	int		zeros;
 	int		spaces;
@@ -89,19 +80,18 @@ int					output_fmt_nbr(char *num, t_fmt *fmt_data, int prefix_size)
 	return (write_fmt_nbr(num, fmt_data, spaces, zeros));
 }
 
-int					write_fmt_nbr(char *num, t_fmt *fmt_data,
-									int spaces, int zeros)
+int		write_fmt_nbr(char *num, t_fmt *fmt_data, int spaces, int zeros)
 {
 	int		write_size;
 
 	write_size = 0;
 	if (!(fmt_data->flag & FLAG_LEFT))
-		write_size += put_c_n_times(' ', spaces);
+		write_size += write_c_n_times(' ', spaces);
 	write_size += write(1, "-", fmt_data->is_minus);
 	write_size += write(1, "0x", fmt_data->type == TYPE_POINTER ? 2 : 0);
-	write_size += put_c_n_times('0', zeros);
+	write_size += write_c_n_times('0', zeros);
 	write_size += write(1, num, fmt_data->digit);
 	if (fmt_data->flag & FLAG_LEFT)
-		write_size += put_c_n_times(' ', spaces);
+		write_size += write_c_n_times(' ', spaces);
 	return (write_size);
 }
