@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 11:05:49 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 11:30:51 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int		write_fmt_nbr(char *num, t_fmt *fmt_data, int spaces, int zeros)
 	write_size += write(1, fmt_data->is_minus ? "-" : "+",
 						will_output_sign(fmt_data));
 	write_size += write(1, fmt_data->type == TYPE_HEX_UP ? "0X" : "0x",
-						will_output_base(fmt_data) ? 2 : 0);
+						will_output_base(fmt_data) && *num != '0' ? 2 : 0);
 	write_size += write_c_n_times('0', zeros);
 	write_size += write(1, num, fmt_data->digit);
 	if (fmt_data->flag & FLAG_LEFT)
