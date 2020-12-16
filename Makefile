@@ -6,7 +6,7 @@
 #    By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/07 22:12:52 by jtanaka           #+#    #+#              #
-#    Updated: 2020/12/13 19:12:18 by jtanaka          ###   ########.fr        #
+#    Updated: 2020/12/16 11:06:30 by jtanaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCS = ft_printf.c \
 	   output_percent.c \
 	   parsers.c \
 	   fmt_utils.c \
+	   fmt_utils2.c \
 	   utils.c
 CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a

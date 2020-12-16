@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 10:45:07 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 11:05:49 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ int		write_integer(t_fmt *fmt_data, long long n)
 	if (num == NULL)
 		return (0);
 	if (n < 0 && !is_unsigned_type(fmt_data->type))
-		prefix_size += ++(fmt_data->is_minus);
+		(fmt_data->is_minus)++;
+	if (will_output_sign(fmt_data))
+		prefix_size++;
 	if (will_output_base(fmt_data))
 		prefix_size += 2;
 	write_size = output_fmt_nbr(num, fmt_data, prefix_size);
@@ -87,7 +89,8 @@ int		write_fmt_nbr(char *num, t_fmt *fmt_data, int spaces, int zeros)
 	write_size = 0;
 	if (!(fmt_data->flag & FLAG_LEFT))
 		write_size += write_c_n_times(' ', spaces);
-	write_size += write(1, "-", fmt_data->is_minus);
+	write_size += write(1, fmt_data->is_minus ? "-" : "+",
+						will_output_sign(fmt_data));
 	write_size += write(1, fmt_data->type == TYPE_HEX_UP ? "0X" : "0x",
 						will_output_base(fmt_data) ? 2 : 0);
 	write_size += write_c_n_times('0', zeros);
