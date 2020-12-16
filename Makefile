@@ -6,7 +6,7 @@
 #    By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/07 22:12:52 by jtanaka           #+#    #+#              #
-#    Updated: 2020/12/16 11:06:30 by jtanaka          ###   ########.fr        #
+#    Updated: 2020/12/16 11:11:26 by jtanaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,8 @@ $(NAME): ${OBJS}
 	cp libft/libft.a $(NAME)
 	ar rcs $(NAME) $(OBJS)
 
+bonus: $(NAME)
+
 clean:
 	${RM} ${OBJS}
 	${LIBFT_MAKE} clean
@@ -40,4 +42,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re 
+.PHONY: all clean fclean re bonus
