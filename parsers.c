@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 01:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/17 06:38:14 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/17 07:23:03 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,32 @@ void	parse_precision(const char **format, t_fmt *fmt_data, va_list *ap)
 			fmt_data->precision = ft_atoi(*format);
 			(*format) += num_len(*format);
 		}
+	}
+}
+
+void	parse_length(const char **format, t_fmt *fmt_data)
+{
+	if (**format == 'l')
+	{
+		(*format)++;
+		if (**format == 'l')
+		{
+			fmt_data->length = LEN_LL;
+			(*format)++;
+		}
+		else
+			fmt_data->length = LEN_L;
+	}
+	if (**format == 'h')
+	{
+		(*format)++;
+		if (**format == 'h')
+		{
+			fmt_data->length = LEN_HH;
+			(*format)++;
+		}
+		else
+			fmt_data->length = LEN_H;
 	}
 }
 

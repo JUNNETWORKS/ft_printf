@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/17 07:10:24 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/17 07:33:04 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,15 @@ enum			e_flag
 	FLAG_ZEROS = 0b10000
 };
 
+enum	e_len
+{
+		LEN_NONE = 0,
+		LEN_L = 1,
+		LEN_LL = 2,
+		LEN_H = 3,
+		LEN_HH = 4,
+};
+
 enum			e_type
 {
 	TYPE_NONE = 0,
@@ -48,6 +57,7 @@ typedef struct	s_fmt
 	enum e_flag	flag;
 	long long	width;
 	long long	precision;
+	enum e_len	length;
 	enum e_type type;
 	long long	is_minus;
 	long long	is_zero;
@@ -60,6 +70,7 @@ void			parse_flag(const char **format, t_fmt *fmt_data);
 void			parse_width(const char **format, t_fmt *fmt_data, va_list *ap);
 void			parse_precision(const char **format,
 					t_fmt *fmt_data, va_list *ap);
+void			parse_length(const char **format, t_fmt *fmt_data);
 void			parse_type(const char **format, t_fmt *fmt_data);
 int				write_fmt_data(t_fmt *fmt_data, va_list *ap);
 int				write_char(t_fmt *fmt_data, va_list *ap);

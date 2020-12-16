@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 02:27:40 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 11:42:40 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/17 07:19:00 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void		initialize_t_fmt(t_fmt *fmt_data)
 {
 	fmt_data->flag = FLAG_NONE;
 	fmt_data->precision = -1;
+	fmt_data->length = LEN_NONE;
 	fmt_data->type = TYPE_NONE;
 	fmt_data->width = 0;
 	fmt_data->digit = 0;
