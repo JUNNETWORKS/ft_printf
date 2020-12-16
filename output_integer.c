@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 11:41:09 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/17 05:57:28 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,18 @@ int		output_fmt_nbr(char *num, t_fmt *fmt_data, int prefix_size)
 	return (write_fmt_nbr(num, fmt_data, spaces, zeros));
 }
 
+char*	get_sign_prefix(t_fmt *fmt_data)
+{
+	if (fmt_data->is_minus)
+		return ("-");
+	else if (fmt_data->flag & FLAG_SPACE)
+		return (" ");
+	else if (fmt_data->flag & FLAG_SIGN)
+		return ("+");
+	else
+		return ("");
+}
+
 int		write_fmt_nbr(char *num, t_fmt *fmt_data, int spaces, int zeros)
 {
 	int		write_size;
@@ -90,7 +102,7 @@ int		write_fmt_nbr(char *num, t_fmt *fmt_data, int spaces, int zeros)
 	write_size = 0;
 	if (!(fmt_data->flag & FLAG_LEFT))
 		write_size += write_c_n_times(' ', spaces);
-	write_size += write(1, fmt_data->is_minus ? "-" : "+",
+	write_size += write(1, get_sign_prefix(fmt_data),
 						will_output_sign(fmt_data));
 	write_size += write(1, fmt_data->type == TYPE_HEX_UP ? "0X" : "0x",
 						will_output_base(fmt_data) ? 2 : 0);
