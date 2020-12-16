@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 01:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 10:40:53 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 10:49:09 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 
 void	parse_flag(const char **format, t_fmt *fmt_data)
 {
-	while (**format && (**format == '0' || **format == '-' || **format == '#'))
+	while (**format && (**format == '0' || **format == '-' || **format == '#' || **format == '+'))
 	{
 		if (**format == '0')
 			fmt_data->flag |= FLAG_ZEROS;
 		if (**format == '-')
 			fmt_data->flag |= FLAG_LEFT;
 		if (**format == '#')
+			fmt_data->flag |= FLAG_BASE;
+		if (**format == '+')
 			fmt_data->flag |= FLAG_SIGN;
 		(*format)++;
 	}

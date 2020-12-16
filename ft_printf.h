@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 10:33:49 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 10:49:22 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ enum			e_flag
 	FLAG_LEFT = 0b00001,
 	FLAG_SIGN = 0b00010,
 	FLAG_SPACE = 0b00100,
-	FLAG_PREFIX = 0b01000,
+	FLAG_BASE = 0b01000,
 	FLAG_ZEROS = 0b10000
 };
 

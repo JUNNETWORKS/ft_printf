@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 02:27:40 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 10:47:14 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 10:49:56 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool		will_output_base(t_fmt *fmt_data)
 {
 	return (fmt_data->type == TYPE_POINTER ||
 		(get_base_from_type(fmt_data->type) == 16 &&
-		fmt_data->flag & FLAG_SIGN));
+		fmt_data->flag & FLAG_BASE));
 }
 
 uint64_t	get_base_from_type(enum e_type type)
