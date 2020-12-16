@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 11:04:58 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 11:34:56 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct	s_fmt
 	long long	precision;
 	enum e_type type;
 	long long	is_minus;
+	long long	is_zero;
 	long long	digit;
 }				t_fmt;
 
