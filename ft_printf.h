@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 08:41:54 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 08:59:14 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct	s_fmt
 	long long	digit;
 }				t_fmt;
 
-t_fmt			*new_t_fmt();
+void			initialize_t_fmt(t_fmt *fmt_data);
 bool			is_unsigned_type(enum e_type type);
 bool			is_integer_type(enum e_type type);
 void			parse_flag(const char **format, t_fmt *fmt_data);

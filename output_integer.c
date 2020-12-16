@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 08:51:50 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 09:06:03 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int					write_integer(t_fmt *fmt_data, long long n)
 	int			prefix_size;
 
 	prefix_size = 0;
-	fmt_itoa(n, fmt_data, &num, 0);
+	if (fmt_itoa(n, fmt_data, &num, 0) < 0)
+		return (-1);
 	if (num == NULL)
 		return (0);
 	if (n < 0 && !is_unsigned_type(fmt_data->type))
@@ -50,8 +51,9 @@ int					fmt_itoa(long long n, t_fmt *fmt_data,
 	base = get_base(fmt_data->type);
 	un = (is_unsigned_type(fmt_data->type) || n >= 0) ? n : -n;
 	if (un >= base)
-		len = fmt_itoa(un / base, fmt_data, num, len);
-	else
+		if ((len = fmt_itoa(un / base, fmt_data, num, len)) < 0)
+			return (-1);
+	if (un < base)
 	{
 		if (!(*num = malloc(len + 1)))
 			return (-1);

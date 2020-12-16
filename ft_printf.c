@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 07:20:53 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 07:04:21 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/16 09:00:55 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,16 @@ int		ft_printf(const char *format, ...)
 int		parse_and_write(va_list ap, const char **format)
 {
 	int		write_size;
-	t_fmt	*fmt_data;
+	t_fmt	fmt_data;
 
 	write_size = 0;
-	fmt_data = new_t_fmt();
-	parse_flag(format, fmt_data);
-	parse_width(format, fmt_data, ap);
-	parse_precision(format, fmt_data, ap);
-	parse_type(format, fmt_data);
-	// printf("\n\tflag: %d\n\twidth: %lld\n\tprecision: %lld\n\ttype: %d\n\tdigit: %lld\n", fmt_data->flag, fmt_data->width, fmt_data->precision, fmt_data->type, fmt_data->digit);
-	write_size += write_fmt_data(fmt_data, ap);
-	free(fmt_data);
+	initialize_t_fmt(&fmt_data);
+	parse_flag(format, &fmt_data);
+	parse_width(format, &fmt_data, ap);
+	parse_precision(format, &fmt_data, ap);
+	parse_type(format, &fmt_data);
+	// printf("\n\tflag: %d\n\twidth: %lld\n\tprecision: %lld\n\ttype: %d\n\tdigit: %lld\n", &fmt_data->flag, &fmt_data->width, &fmt_data->precision, &fmt_data->type, &fmt_data->digit);
+	write_size += write_fmt_data(&fmt_data, ap);
 	return (write_size);
 }
 
