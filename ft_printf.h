@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/16 11:34:56 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/17 06:04:21 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ bool			is_unsigned_type(enum e_type type);
 bool			is_integer_type(enum e_type type);
 bool			will_output_base(t_fmt *fmt_data);
 bool			will_output_sign(t_fmt *fmt_data);
+char			*get_sign_prefix(t_fmt *fmt_data);
 uint64_t		get_base_from_type(enum e_type type);
 void			parse_flag(const char **format, t_fmt *fmt_data);
 void			parse_width(const char **format, t_fmt *fmt_data, va_list ap);

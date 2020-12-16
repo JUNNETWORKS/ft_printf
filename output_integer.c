@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/17 05:57:28 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/17 06:03:52 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,18 +81,6 @@ int		output_fmt_nbr(char *num, t_fmt *fmt_data, int prefix_size)
 		spaces = 0;
 	}
 	return (write_fmt_nbr(num, fmt_data, spaces, zeros));
-}
-
-char*	get_sign_prefix(t_fmt *fmt_data)
-{
-	if (fmt_data->is_minus)
-		return ("-");
-	else if (fmt_data->flag & FLAG_SPACE)
-		return (" ");
-	else if (fmt_data->flag & FLAG_SIGN)
-		return ("+");
-	else
-		return ("");
 }
 
 int		write_fmt_nbr(char *num, t_fmt *fmt_data, int spaces, int zeros)
