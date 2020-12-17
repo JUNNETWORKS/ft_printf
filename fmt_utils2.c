@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 11:03:50 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/17 09:54:23 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/17 23:54:18 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,3 @@ long long	fmt_va_arg(t_fmt *fmt_data, va_list *ap)
 	}
 	return (n);
 }
-

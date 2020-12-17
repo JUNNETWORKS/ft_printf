@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/17 09:55:06 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/17 23:53:15 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <inttypes.h>
+# include <wchar.h>
 
 enum			e_flag
 {
@@ -32,11 +33,11 @@ enum			e_flag
 
 enum	e_len
 {
-		LEN_NONE = 0,
-		LEN_L = 1,
-		LEN_LL = 2,
-		LEN_H = 3,
-		LEN_HH = 4,
+	LEN_NONE = 0,
+	LEN_L = 1,
+	LEN_LL = 2,
+	LEN_H = 3,
+	LEN_HH = 4,
 };
 
 enum			e_type
@@ -75,6 +76,7 @@ void			parse_type(const char **format, t_fmt *fmt_data);
 int				write_fmt_data(t_fmt *fmt_data, va_list *ap);
 int				write_char(t_fmt *fmt_data, va_list *ap);
 int				write_string(t_fmt *fmt_data, va_list *ap);
+int				write_wstr(t_fmt *fmt_data, va_list *ap);
 int				write_integer(t_fmt *fmt_data, long long n);
 int				write_percent(t_fmt *fmt_data);
 void			initialize_t_fmt(t_fmt *fmt_data);
@@ -86,6 +88,7 @@ bool			will_output_sign(t_fmt *fmt_data);
 char			*get_sign_prefix(t_fmt *fmt_data);
 uint64_t		get_base_from_type(enum e_type type);
 int				write_c_n_times(char c, int n);
+size_t			ft_wcslen (wchar_t *s);
 int				fmt_itoa(long long n, t_fmt *fmt_data,
 						char **num, long long len);
 int				output_fmt_nbr(char *num, t_fmt *fmt_data,

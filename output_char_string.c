@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:38:46 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/17 10:21:49 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/17 23:48:27 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,28 @@ int		write_string(t_fmt *fmt_data, va_list *ap)
 	if (!(fmt_data->flag & FLAG_LEFT))
 		write_c_n_times(fmt_data->flag & FLAG_ZEROS ? '0' : ' ', output_width);
 	write(1, str, output_str_len);
+	if (fmt_data->flag & FLAG_LEFT)
+		write_c_n_times(' ', output_width);
+	return (output_width + output_str_len);
+}
+
+int		write_wstr(t_fmt *fmt_data, va_list *ap)
+{
+	wchar_t		*str;
+	long long	output_str_len;
+	long long	output_width;
+
+	str = va_arg(*ap, wchar_t*);
+	str = str ? str : L"(null)";
+	output_str_len = ft_wcslen(str);
+	output_width = 0;
+	if (fmt_data->precision >= 0 && output_str_len > fmt_data->precision)
+		output_str_len = fmt_data->precision;
+	if (fmt_data->width > output_str_len)
+		output_width = fmt_data->width - output_str_len;
+	if (!(fmt_data->flag & FLAG_LEFT))
+		write_c_n_times(fmt_data->flag & FLAG_ZEROS ? '0' : ' ', output_width);
+	write(1, str, sizeof(wchar_t) * output_str_len);
 	if (fmt_data->flag & FLAG_LEFT)
 		write_c_n_times(' ', output_width);
 	return (output_width + output_str_len);
