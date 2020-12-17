@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/17 23:53:15 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/18 01:15:02 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void			parse_length(const char **format, t_fmt *fmt_data);
 void			parse_type(const char **format, t_fmt *fmt_data);
 int				write_fmt_data(t_fmt *fmt_data, va_list *ap);
 int				write_char(t_fmt *fmt_data, va_list *ap);
+int				write_wchr(t_fmt *fmt_data, va_list *ap);
 int				write_string(t_fmt *fmt_data, va_list *ap);
 int				write_wstr(t_fmt *fmt_data, va_list *ap);
 int				write_integer(t_fmt *fmt_data, long long n);

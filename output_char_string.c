@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:38:46 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/17 23:48:27 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/18 01:19:00 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,21 @@ int		write_char(t_fmt *fmt_data, va_list *ap)
 	if (fmt_data->width > 0 && fmt_data->flag & FLAG_LEFT)
 		write_size += write_c_n_times(' ', fmt_data->width - 1);
 	return (write_size);
+}
+
+int		write_wchr(t_fmt *fmt_data, va_list *ap)
+{
+	wchar_t		c;
+	int			write_size;
+
+	write_size = 0;
+	c = va_arg(*ap, wchar_t);
+	if (fmt_data->width > 0 && !(fmt_data->flag & FLAG_LEFT))
+		write_size += write_c_n_times(' ', fmt_data->width - 1);
+	write(1, &c, sizeof(wchar_t));
+	if (fmt_data->width > 0 && fmt_data->flag & FLAG_LEFT)
+		write_size += write_c_n_times(' ', fmt_data->width - 1);
+	return (++write_size);
 }
 
 int		write_string(t_fmt *fmt_data, va_list *ap)

@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 07:20:53 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/18 00:10:11 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/18 01:15:42 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int		write_fmt_data(t_fmt *fmt_data, va_list *ap)
 	if (fmt_data->type == TYPE_PERCENT)
 		return (write_percent(fmt_data));
 	if (fmt_data->type == TYPE_CHAR)
-		return (write_char(fmt_data, ap));
+		return (fmt_data->length == LEN_L ? write_wchr(fmt_data, ap) :
+			write_char(fmt_data, ap));
 	else if (fmt_data->type == TYPE_STRING)
 		return (fmt_data->length == LEN_L ? write_wstr(fmt_data, ap) :
 			write_string(fmt_data, ap));
