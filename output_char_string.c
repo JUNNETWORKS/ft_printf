@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:38:46 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/17 06:40:03 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/17 10:21:49 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		write_string(t_fmt *fmt_data, va_list *ap)
 	long long	output_str_len;
 	long long	output_width;
 
-	str = (const char *)va_arg(*ap, const char *);
+	str = va_arg(*ap, const char *);
 	str = str ? str : "(null)";
 	output_str_len = ft_strlen(str);
 	output_width = 0;
@@ -42,15 +42,10 @@ int		write_string(t_fmt *fmt_data, va_list *ap)
 		output_str_len = fmt_data->precision;
 	if (fmt_data->width > output_str_len)
 		output_width = fmt_data->width - output_str_len;
-	if (fmt_data->flag & FLAG_LEFT)
-	{
-		write(1, str, output_str_len);
-		write_c_n_times(' ', output_width);
-	}
-	else
-	{
+	if (!(fmt_data->flag & FLAG_LEFT))
 		write_c_n_times(fmt_data->flag & FLAG_ZEROS ? '0' : ' ', output_width);
-		write(1, str, output_str_len);
-	}
+	write(1, str, output_str_len);
+	if (fmt_data->flag & FLAG_LEFT)
+		write_c_n_times(' ', output_width);
 	return (output_width + output_str_len);
 }
