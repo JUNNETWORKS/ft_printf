@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:37:07 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/17 07:08:24 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/18 02:16:50 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int		write_integer(t_fmt *fmt_data, long long n)
 
 	prefix_size = 0;
 	if (fmt_itoa(n, fmt_data, &num, 0) < 0)
-		return (-1);
-	if (num == NULL)
 		return (0);
 	if (n < 0 && !is_unsigned_type(fmt_data->type))
 		(fmt_data->is_minus)++;
@@ -69,7 +67,7 @@ int		output_fmt_nbr(char *num, t_fmt *fmt_data, int prefix_size)
 
 	zeros = 0;
 	spaces = 0;
-	if (fmt_data->precision == 0 && *num == '0')
+	if (fmt_data->precision == 0 && fmt_data->is_zero)
 		fmt_data->digit = 0;
 	if (fmt_data->precision > fmt_data->digit)
 		zeros = fmt_data->precision - fmt_data->digit;

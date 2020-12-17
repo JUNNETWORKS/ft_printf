@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 07:20:53 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/18 01:15:42 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/18 02:13:41 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,15 @@ int		ft_printf(const char *format, ...)
 
 int		parse_and_write(const char **format, va_list *ap)
 {
-	int		write_size;
 	t_fmt	fmt_data;
 
-	write_size = 0;
 	initialize_t_fmt(&fmt_data);
 	parse_flag(format, &fmt_data);
 	parse_width(format, &fmt_data, ap);
 	parse_precision(format, &fmt_data, ap);
 	parse_length(format, &fmt_data);
 	parse_type(format, &fmt_data);
-	write_size += write_fmt_data(&fmt_data, ap);
-	return (write_size);
+	return (write_fmt_data(&fmt_data, ap));
 }
 
 int		write_fmt_data(t_fmt *fmt_data, va_list *ap)
