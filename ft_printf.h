@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:55:18 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/17 07:33:04 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/17 09:55:06 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int				write_string(t_fmt *fmt_data, va_list *ap);
 int				write_integer(t_fmt *fmt_data, long long n);
 int				write_percent(t_fmt *fmt_data);
 void			initialize_t_fmt(t_fmt *fmt_data);
+long long		fmt_va_arg(t_fmt *fmt_data, va_list *ap);
 bool			is_unsigned_type(enum e_type type);
 bool			is_integer_type(enum e_type type);
 bool			will_output_base(t_fmt *fmt_data);
