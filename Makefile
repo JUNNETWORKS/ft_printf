@@ -6,7 +6,7 @@
 #    By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/07 22:12:52 by jtanaka           #+#    #+#              #
-#    Updated: 2020/12/16 11:11:26 by jtanaka          ###   ########.fr        #
+#    Updated: 2020/12/19 09:08:14 by jtanaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS = ft_printf.c \
 	   fmt_utils.c \
 	   fmt_utils2.c \
 	   utils.c
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
 OBJS = $(SRCS:.c=.o)
