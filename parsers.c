@@ -6,7 +6,7 @@
 /*   By: jtanaka <jtanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 01:03:47 by jtanaka           #+#    #+#             */
-/*   Updated: 2020/12/17 07:23:03 by jtanaka          ###   ########.fr       */
+/*   Updated: 2020/12/21 05:58:34 by jtanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	parse_flag(const char **format, t_fmt *fmt_data)
 	}
 	if (fmt_data->flag & FLAG_LEFT && fmt_data->flag & FLAG_ZEROS)
 		fmt_data->flag &= ~FLAG_ZEROS;
+	if (fmt_data->flag & FLAG_SIGN && fmt_data->flag & FLAG_SPACE)
+		fmt_data->flag &= ~FLAG_SPACE;
 }
 
 void	parse_width(const char **format, t_fmt *fmt_data, va_list *ap)
@@ -45,17 +47,16 @@ void	parse_width(const char **format, t_fmt *fmt_data, va_list *ap)
 		if (width < 0)
 		{
 			fmt_data->flag |= FLAG_LEFT;
-			if (fmt_data->flag & FLAG_ZEROS)
-				fmt_data->flag = FLAG_LEFT;
+			fmt_data->flag &= ~FLAG_ZEROS;
 			width = -width;
 		}
-		fmt_data->width = (unsigned int)width;
+		fmt_data->width = width;
 		(*format)++;
 	}
 	else if (ft_isdigit(**format))
 	{
 		width = ft_atoi(*format);
-		fmt_data->width = (unsigned int)width;
+		fmt_data->width = width;
 		(*format) += num_len(*format);
 	}
 }
