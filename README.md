@@ -16,5 +16,5 @@ GCC で静的リンク時のライブラリ指定の順番には依存性があ�
 デバッグしたい時は以下のコマンドが楽
 
 ```bash
-make && gcc -g -fsanitize=address main.c libftprintf.a && ./a.out
+make && gcc -g -fsanitize=address main.c libftprintf.a && ./a.out && make fclean > /dev/null
 ```
